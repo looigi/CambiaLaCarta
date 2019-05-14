@@ -337,9 +337,24 @@ Public Class GestioneImmagini
 
 			Dim r As System.Drawing.Rectangle
 			Dim Colore As Pen = Pens.White
+			Dim ColoreNero As Pen = Pens.Black
 			Dim c As Integer = 0
 
-			For i As Integer = 0 To 12
+			r.X = 0
+			r.Y = 0
+			r.Width = originalX
+			r.Height = originalY
+
+			g.DrawRectangle(ColoreNero, r)
+
+			r.X = 1
+			r.Y = 1
+			r.Width = originalX - 1
+			r.Height = originalY - 1
+
+			g.DrawRectangle(ColoreNero, r)
+
+			For i As Integer = 2 To 11
 				r.X = i
 				r.Y = i
 				r.Width = originalX - i - 1 - r.X
@@ -348,14 +363,19 @@ Public Class GestioneImmagini
 				g.DrawRectangle(Colore, r)
 			Next
 
-			Colore = Pens.Black
+			r.X = 11
+			r.Y = 11
+			r.Width = originalX - 11
+			r.Height = originalY - 11
 
-			r.X = 0
-			r.Y = 0
-			r.Width = originalX - 1 - r.X
-			r.Height = originalY - 1 - r.Y
+			g.DrawRectangle(ColoreNero, r)
 
-			g.DrawRectangle(Colore, r)
+			r.X = 12
+			r.Y = 12
+			r.Width = originalX - 12
+			r.Height = originalY - 12
+
+			g.DrawRectangle(ColoreNero, r)
 
 			'Colore = Pens.Gray
 
