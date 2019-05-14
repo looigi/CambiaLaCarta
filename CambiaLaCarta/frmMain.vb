@@ -341,6 +341,35 @@ Public Class frmMain
 			End If
 		End If
 
+		' Titolo
+		Dim TitoloScritta1 As String = NomeOriginale.Replace(Percorso & "\", "")
+		Dim TitoloScritta2 As String = "Dimensioni: " & vDime & " - Data: " & TornaDataImmagine(Immaginella)
+		If TitoloScritta1.Length > 50 Then
+			TitoloScritta1 = Mid(TitoloScritta1, 1, 23) & "..." & Mid(TitoloScritta1, TitoloScritta1.Length - 23, 23)
+		End If
+		If TitoloScritta2.Length > 50 Then
+			TitoloScritta2 = Mid(TitoloScritta2, 1, 23) & "..." & Mid(TitoloScritta2, TitoloScritta2.Length - 23, 23)
+		End If
+
+		Dim Titolo As String = Application.StartupPath & "\Images\Titolo.png"
+		Dim titBitmap As Bitmap = gi.LoadBitmapSenzaLock(Titolo)
+		titBitmap = gi.LoadBitmapSenzaLock(Application.StartupPath & "\Images\Titolo.png")
+		Dim gr As Graphics = Graphics.FromImage(titBitmap)
+		gr.DrawString(TitoloScritta1,
+			  New Font("Comic Sans Ms", 34),
+			  New SolidBrush(Color.Blue),
+			  120, 120)
+		gr.DrawString(TitoloScritta2,
+			  New Font("Comic Sans Ms", 24),
+			  New SolidBrush(Color.Red),
+			  140, 175)
+		gr.Dispose()
+		If File.Exists(Application.StartupPath & "\AppoggioTit.jpg") Then
+			File.Delete(Application.StartupPath & "\AppoggioTit.jpg")
+		End If
+		titBitmap.Save(Application.StartupPath & "\AppoggioTit.png", ImageFormat.Png)
+		gi.Ridimensiona(Application.StartupPath & "\AppoggioTit.png", Application.StartupPath & "\AppoggioTit.png", 400, 150)
+
 		Randomize()
 		Dim xx As Random = New Random()
 		Dim x As Integer = xx.Next(1, 30)
@@ -436,6 +465,11 @@ Public Class frmMain
 				Dim px As Integer = (screenWidth / 2) - (bmp.Width / 2)
 				Dim py As Integer = (screenHeight / 2) - (bmp.Height / 2)
 				GraphicsObject.DrawImage(bmp, px, py)
+
+				Dim bmpTitolo As Bitmap = gi.LoadBitmapSenzaLock(Application.StartupPath & "\AppoggioTit.png")
+				px = (screenWidth / 2) - (bmpTitolo.Width / 2)
+				py = 10
+				GraphicsObject.DrawImage(bmpTitolo, px, py)
 			End Using
 			File.Delete(Immaginella)
 			bitmapSfondo.Save(Immaginella)
