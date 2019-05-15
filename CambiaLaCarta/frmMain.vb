@@ -44,14 +44,14 @@ Public Class frmMain
 
 		CaricaImmagini()
 
-		frmNomeImmagine.Show()
-		frmNomeImmagine.Opacity = 0.5
-		frmNomeImmagine.Left = 4
-		frmNomeImmagine.Top = 4
-
-		frmNomeImmagine.lblNomeImmagine.Text = GetSetting("CambiaLaCarta", "Impostazioni", "UltimaScritta", "")
-
-		frmNomeImmagine.Width = frmNomeImmagine.lblNomeImmagine.Width + 10
+		' frmNomeImmagine.Show()
+		' frmNomeImmagine.Opacity = 0.5
+		' frmNomeImmagine.Left = 4
+		' frmNomeImmagine.Top = 4
+		' 
+		' frmNomeImmagine.lblNomeImmagine.Text = GetSetting("CambiaLaCarta", "Impostazioni", "UltimaScritta", "")
+		' 
+		' frmNomeImmagine.Width = frmNomeImmagine.lblNomeImmagine.Width + 10
 
 		For i As Integer = 0 To lstImmagini.Items.Count
 			If NomeImmagine(i) = NomeImmagine(NumeroImmagineVisualizzata) Then
@@ -281,10 +281,12 @@ Public Class frmMain
 			' In caso di dimensioni esageratamente grandi riduce l'immagine
 		End If
 
-		frmNomeImmagine.lblNomeImmagine.Text = NomeOriginale.Replace(Percorso & "\", "") & vbCrLf & "Dimensioni: " & vDime & vbCrLf & "Data: " & TornaDataImmagine(Immaginella) & vbCrLf
-		frmNomeImmagine.Width = frmNomeImmagine.lblNomeImmagine.Width + 10
+		' frmNomeImmagine.lblNomeImmagine.Text = NomeOriginale.Replace(Percorso & "\", "") & vbCrLf & "Dimensioni: " & vDime & vbCrLf & "Data: " & TornaDataImmagine(Immaginella) & vbCrLf
+		' frmNomeImmagine.Width = frmNomeImmagine.lblNomeImmagine.Width + 10
 
-		SaveSetting("CambiaLaCarta", "Impostazioni", "UltimaScritta", frmNomeImmagine.lblNomeImmagine.Text)
+		Dim UltimaScritta As String = NomeOriginale.Replace(Percorso & "\", "") & vbCrLf & "Dimensioni: " & vDime & vbCrLf & "Data: " & TornaDataImmagine(Immaginella) & vbCrLf
+
+		SaveSetting("CambiaLaCarta", "Impostazioni", "UltimaScritta", UltimaScritta)
 
 		CaricaImmagine(Immaginella)
 
@@ -342,13 +344,21 @@ Public Class frmMain
 		End If
 
 		' Titolo
-		Dim TitoloScritta1 As String = NomeOriginale.Replace(Percorso & "\", "")
-		Dim TitoloScritta2 As String = "Dimensioni: " & vDime & " - Data: " & TornaDataImmagine(Immaginella)
+		Dim gf As New GestioneFilesDirectory
+		Dim TitoloScritta1 As String = gf.TornaNomeFileDaPath(NomeOriginale.Replace(Percorso & "\", ""))
+		If TitoloScritta1.Contains(".") Then
+			TitoloScritta1 = Mid(TitoloScritta1, 1, TitoloScritta1.IndexOf("."))
+		End If
+		Dim TitoloScritta2 As String = "Path: " & gf.TornaNomeDirectoryDaPath(NomeOriginale.Replace(Percorso & "\", ""))
+		Dim TitoloScritta3 As String = "Dimensioni: " & vDime & " - Data: " & TornaDataImmagine(Immaginella)
 		If TitoloScritta1.Length > 50 Then
 			TitoloScritta1 = Mid(TitoloScritta1, 1, 23) & "..." & Mid(TitoloScritta1, TitoloScritta1.Length - 23, 23)
 		End If
 		If TitoloScritta2.Length > 50 Then
 			TitoloScritta2 = Mid(TitoloScritta2, 1, 23) & "..." & Mid(TitoloScritta2, TitoloScritta2.Length - 23, 23)
+		End If
+		If TitoloScritta3.Length > 50 Then
+			TitoloScritta3 = Mid(TitoloScritta3, 1, 23) & "..." & Mid(TitoloScritta3, TitoloScritta3.Length - 23, 23)
 		End If
 
 		Dim Titolo As String = Application.StartupPath & "\Images\Titolo.png"
@@ -363,12 +373,27 @@ Public Class frmMain
 			  New Font("Comic Sans Ms", 24),
 			  New SolidBrush(Color.Red),
 			  140, 175)
+		gr.DrawString(TitoloScritta3,
+			  New Font("Comic Sans Ms", 24),
+			  New SolidBrush(Color.Red),
+			  140, 215)
 		gr.Dispose()
 		If File.Exists(Application.StartupPath & "\AppoggioTit.jpg") Then
 			File.Delete(Application.StartupPath & "\AppoggioTit.jpg")
 		End If
+		titBitmap.MakeTransparent(Color.Black)
 		titBitmap.Save(Application.StartupPath & "\AppoggioTit.png", ImageFormat.Png)
-		gi.Ridimensiona(Application.StartupPath & "\AppoggioTit.png", Application.StartupPath & "\AppoggioTit.png", 400, 150)
+		gi.Ridimensiona(Application.StartupPath & "\AppoggioTit.png", Application.StartupPath & "\AppoggioTit.png", dimeX * 0.55, 150, ImageFormat.Png)
+
+		Dim yy As Random = New Random
+		Randomize()
+		Dim y As Integer = yy.Next(0, 10)
+		If y > 5 Then
+			y = 5 - y
+		End If
+
+		gi.RuotaImmagine(Application.StartupPath & "\AppoggioTit.png", y)
+		' Titolo
 
 		Randomize()
 		Dim xx As Random = New Random()
@@ -396,15 +421,15 @@ Public Class frmMain
 			b.Save(Immaginella)
 		End If
 
-		'If x / 4 = Int(x / 4) Then
 		Randomize()
-		Dim yy As Random = New Random
-		Dim y As Integer = yy.Next(1, 35)
+		y = yy.Next(1, 35)
 		If y > 17 Then
 			y = 17 - y
 		End If
 
-		gi.RotateImage(Immaginella, y)
+		'If x / 4 = Int(x / 4) Then
+		Randomize()
+		gi.RuotaImmagine(Immaginella, y)
 		'End If
 
 		Select Case x
@@ -417,7 +442,7 @@ Public Class frmMain
 			Case 3, 13, 23
 				gi.ConverteInSeppia(Immaginella)
 			Case 4
-				gi.ConverteEdge(Immaginella)
+				' gi.ConverteEdge(Immaginella)
 			'Case 5
 			'	gi.ConverteXRay(Immaginella)
 			Case 6, 14, 24
@@ -468,7 +493,15 @@ Public Class frmMain
 
 				Dim bmpTitolo As Bitmap = gi.LoadBitmapSenzaLock(Application.StartupPath & "\AppoggioTit.png")
 				px = (screenWidth / 2) - (bmpTitolo.Width / 2)
-				py = 10
+				py = 5
+				Randomize()
+				y = yy.Next(1, 15)
+				If y > 7 Then y = 7 - y
+				px += y
+				Randomize()
+				y = yy.Next(1, 5)
+				If y > 3 Then y = 3 - y
+				py += y
 				GraphicsObject.DrawImage(bmpTitolo, px, py)
 			End Using
 			File.Delete(Immaginella)
