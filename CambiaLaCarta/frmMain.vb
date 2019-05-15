@@ -290,6 +290,17 @@ Public Class frmMain
 
 		CaricaImmagine(Immaginella)
 
+		Try
+			MkDir(Application.StartupPath & "\Images\Sfondi\Ridotti\")
+		Catch ex As Exception
+
+		End Try
+		Try
+			MkDir(Application.StartupPath & "\Images\Appoggio\")
+		Catch ex As Exception
+
+		End Try
+
 		If optAdatta.Checked = True Then
 			Dim dX As Integer = Val(Dime(0))
 			Dim dY As Integer = Val(Dime(1))
@@ -313,22 +324,23 @@ Public Class frmMain
 			dX /= PercentualeResize
 			dY /= PercentualeResize
 
-			gi.Ridimensiona(Immaginella, Application.StartupPath & "\Appoggio.jpg", dX * 0.9, dY * 0.9)
+			gi.Ridimensiona(Immaginella, Application.StartupPath & "\Images\Appoggio\Appoggio.png", dX * 0.9, dY * 0.8)
 
-			If File.Exists(Application.StartupPath & "\Appoggio.jpg") Then
-				Immaginella = Application.StartupPath & "\Appoggio.jpg"
+			If File.Exists(Application.StartupPath & "\Images\Appoggio\Appoggio.png") Then
+				Immaginella = Application.StartupPath & "\Images\Appoggio\Appoggio.png"
 			End If
 		Else
 			If optTuttoSchermo.Checked = True Then
 				Try
-					Kill(Application.StartupPath & "\Appoggio.jpg")
+					Kill(Application.StartupPath & "\Images\Appoggio\Appoggio.png")
 				Catch ex As Exception
 
 				End Try
-				gi.Ridimensiona(Immaginella, Application.StartupPath & "\Appoggio.jpg", dimeX, dimeY)
 
-				If File.Exists(Application.StartupPath & "\Appoggio.jpg") Then
-					Immaginella = Application.StartupPath & "\Appoggio.jpg"
+				gi.Ridimensiona(Immaginella, Application.StartupPath & "\Images\Appoggio\Appoggio.png", dimeX, dimeY)
+
+				If File.Exists(Application.StartupPath & "\Images\Appoggio\Appoggio.png") Then
+					Immaginella = Application.StartupPath & "\Images\Appoggio\Appoggio.png"
 				End If
 			Else
 				' Modalità normale... Non devo toccare niente
@@ -336,12 +348,19 @@ Public Class frmMain
 		End If
 
 		If chkCornice.Checked = True Then
-			gi.MetteCorniceAImmagine(Immaginella, Application.StartupPath & "\AppoggioCornice.jpg")
+			gi.MetteCorniceAImmagine(Immaginella, Application.StartupPath & "\Images\Appoggio\AppoggioCornice.png")
 
-			If File.Exists(Application.StartupPath & "\Appoggio.jpg") Then
-				Immaginella = Application.StartupPath & "\AppoggioCornice.jpg"
+			If File.Exists(Application.StartupPath & "\Images\Appoggio\Appoggio.png") Then
+				Immaginella = Application.StartupPath & "\Images\Appoggio\AppoggioCornice.png"
 			End If
 		End If
+
+		'Dim bb As Bitmap = gi.LoadBitmapSenzaLock(Immaginella)
+		'gi.ApplicaOmbraABitmap(bb, Color.Gray, Color.Black)
+		'File.Delete(Immaginella)
+		'bb.MakeTransparent(Color.Black)
+		'bb.Save(Immaginella)
+		'bb.Dispose()
 
 		' Titolo
 		Dim gf As New GestioneFilesDirectory
@@ -351,19 +370,19 @@ Public Class frmMain
 		End If
 		Dim TitoloScritta2 As String = "Path: " & gf.TornaNomeDirectoryDaPath(NomeOriginale.Replace(Percorso & "\", ""))
 		Dim TitoloScritta3 As String = "Dimensioni: " & vDime & " - Data: " & TornaDataImmagine(Immaginella)
-		If TitoloScritta1.Length > 50 Then
-			TitoloScritta1 = Mid(TitoloScritta1, 1, 23) & "..." & Mid(TitoloScritta1, TitoloScritta1.Length - 23, 23)
+		If TitoloScritta1.Length > 38 Then
+			TitoloScritta1 = Mid(TitoloScritta1, 1, 18) & "..." & Mid(TitoloScritta1, TitoloScritta1.Length - 18, 18)
 		End If
-		If TitoloScritta2.Length > 50 Then
-			TitoloScritta2 = Mid(TitoloScritta2, 1, 23) & "..." & Mid(TitoloScritta2, TitoloScritta2.Length - 23, 23)
+		If TitoloScritta2.Length > 56 Then
+			TitoloScritta2 = Mid(TitoloScritta2, 1, 26) & "..." & Mid(TitoloScritta2, TitoloScritta2.Length - 26, 26)
 		End If
-		If TitoloScritta3.Length > 50 Then
-			TitoloScritta3 = Mid(TitoloScritta3, 1, 23) & "..." & Mid(TitoloScritta3, TitoloScritta3.Length - 23, 23)
+		If TitoloScritta3.Length > 56 Then
+			TitoloScritta3 = Mid(TitoloScritta3, 1, 26) & "..." & Mid(TitoloScritta3, TitoloScritta3.Length - 26, 26)
 		End If
 
-		Dim Titolo As String = Application.StartupPath & "\Images\Titolo.png"
+		Dim Titolo As String = Application.StartupPath & "\Images\Dettagli\Titolo.png"
 		Dim titBitmap As Bitmap = gi.LoadBitmapSenzaLock(Titolo)
-		titBitmap = gi.LoadBitmapSenzaLock(Application.StartupPath & "\Images\Titolo.png")
+		titBitmap = gi.LoadBitmapSenzaLock(Application.StartupPath & "\Images\Dettagli\Titolo.png")
 		Dim gr As Graphics = Graphics.FromImage(titBitmap)
 		gr.DrawString(TitoloScritta1,
 			  New Font("Comic Sans Ms", 34),
@@ -378,44 +397,54 @@ Public Class frmMain
 			  New SolidBrush(Color.Red),
 			  140, 215)
 		gr.Dispose()
-		If File.Exists(Application.StartupPath & "\AppoggioTit.jpg") Then
-			File.Delete(Application.StartupPath & "\AppoggioTit.jpg")
+		If File.Exists(Application.StartupPath & "\Images\Appoggio\AppoggioTit.jpg") Then
+			File.Delete(Application.StartupPath & "\Images\Appoggio\AppoggioTit.jpg")
 		End If
 		titBitmap.MakeTransparent(Color.Black)
-		titBitmap.Save(Application.StartupPath & "\AppoggioTit.png", ImageFormat.Png)
-		gi.Ridimensiona(Application.StartupPath & "\AppoggioTit.png", Application.StartupPath & "\AppoggioTit.png", dimeX * 0.55, 150, ImageFormat.Png)
+		titBitmap.Save(Application.StartupPath & "\Images\Appoggio\AppoggioTit.png", ImageFormat.Png)
+		gi.Ridimensiona(Application.StartupPath & "\Images\Appoggio\AppoggioTit.png", Application.StartupPath & "\Images\Appoggio\AppoggioTit.png", dimeX * 0.55, 150, ImageFormat.Png)
 
 		Dim yy As Random = New Random
 		Randomize()
-		Dim y As Integer = yy.Next(0, 10)
-		If y > 5 Then
-			y = 5 - y
+		Dim y As Integer = yy.Next(0, 14)
+		If y > 7 Then
+			y = 7 - y
 		End If
 
-		gi.RuotaImmagine(Application.StartupPath & "\AppoggioTit.png", y)
+		gi.RuotaImmagine(Application.StartupPath & "\Images\Appoggio\AppoggioTit.png", y)
 		' Titolo
 
 		Randomize()
 		Dim xx As Random = New Random()
 		Dim x As Integer = xx.Next(1, 30)
 
+		Dim b As Bitmap = gi.LoadBitmapSenzaLock(Immaginella)
 		If x / 3 = Int(x / 3) Then
-			Dim b As Bitmap = gi.LoadBitmapSenzaLock(Immaginella)
 			Using GraphicsObject As Graphics = Graphics.FromImage(b)
-				' Pins
-				Dim Pin1 As String = Application.StartupPath & "\Pins\4.png"
+				x = xx.Next(1, 2)
+				If x = 1 Then
+					' Pins
+					Dim Pin1 As String = Application.StartupPath & "\Images\Pins\4.png"
 
-				Dim bmpPins As Bitmap = gi.LoadBitmapSenzaLock(Pin1)
-				GraphicsObject.DrawImage(bmpPins, 20, 20)
+					Dim bmpPins As Bitmap = gi.LoadBitmapSenzaLock(Pin1)
+					GraphicsObject.DrawImage(bmpPins, 20, 20)
 
-				bmpPins = gi.LoadBitmapSenzaLock(Pin1)
-				GraphicsObject.DrawImage(bmpPins, b.Width - bmpPins.Width, 20)
+					bmpPins = gi.LoadBitmapSenzaLock(Pin1)
+					GraphicsObject.DrawImage(bmpPins, b.Width - bmpPins.Width, 20)
 
-				bmpPins = gi.LoadBitmapSenzaLock(Pin1)
-				GraphicsObject.DrawImage(bmpPins, 0, b.Height - bmpPins.Height)
+					bmpPins = gi.LoadBitmapSenzaLock(Pin1)
+					GraphicsObject.DrawImage(bmpPins, 0, b.Height - bmpPins.Height)
 
-				bmpPins = gi.LoadBitmapSenzaLock(Pin1)
-				GraphicsObject.DrawImage(bmpPins, b.Width - bmpPins.Width, b.Height - bmpPins.Height)
+					bmpPins = gi.LoadBitmapSenzaLock(Pin1)
+					GraphicsObject.DrawImage(bmpPins, b.Width - bmpPins.Width, b.Height - bmpPins.Height)
+					' Pins
+				Else
+					' Graffetta
+					Dim Graffetta As String = Application.StartupPath & "\Images\Dettagli\Graffetta.png"
+					Dim bmpGraffetta As Bitmap = gi.LoadBitmapSenzaLock(Graffetta)
+					GraphicsObject.DrawImage(bmpGraffetta, 30, -5)
+					' Graffetta
+				End If
 			End Using
 			File.Delete(Immaginella)
 			b.Save(Immaginella)
@@ -461,47 +490,115 @@ Public Class frmMain
 				'	gi.ConverteInHighPass2(Immaginella)
 		End Select
 
-		' Dim gf As New GestioneFilesDirectory
-		' gf.ScansionaDirectorySingola(Application.StartupPath & "\Sfondi")
-		' Dim quanteImmSfondo As Integer = gf.RitornaQuantiFilesRilevati
-		' gf = Nothing
-		Dim quanteImmSfondo As Integer = 27
+		gf.ScansionaDirectorySingola(Application.StartupPath & "\Images\Sfondi")
+		Dim quanteImmSfondo As Integer = 0
+		Dim filettis() As String = gf.RitornaFilesRilevati
+		For i As Integer = 1 To gf.RitornaQuantiFilesRilevati
+			If filettis(i).ToUpper.Contains(".JPG") And Not filettis(i).ToUpper.Contains("RIDOTTI") Then
+				quanteImmSfondo += 1
+			End If
+		Next
+		gf = Nothing
 
 		Dim xxx As New Random
-		Dim xxxx As Integer = xxx.Next(0, quanteImmSfondo + 3)
-		If xxxx <> 0 And xxxx <= quanteImmSfondo Then
-			Dim Sfondo As String = Application.StartupPath & "\Sfondi\" & xxxx & ".jpg"
-			Try
-				MkDir(Application.StartupPath & "\Sfondi\Ridotti\")
-			Catch ex As Exception
-
-			End Try
-			Dim SfondoRid As String = Application.StartupPath & "\Sfondi\Ridotti\" & System.Net.Dns.GetHostName & "_" & xxxx & ".jpg"
+		Dim xxxx As Integer = xxx.Next(1, quanteImmSfondo + 3)
+		If xxxx <= quanteImmSfondo Then
+			Dim Sfondo As String = Application.StartupPath & "\Images\Sfondi\" & xxxx & ".jpg"
+			Dim SfondoRid As String = Application.StartupPath & "\Images\Sfondi\Ridotti\" & System.Net.Dns.GetHostName & "_" & xxxx & ".png"
 			Dim screenWidth As Integer = Screen.PrimaryScreen.Bounds.Width
 			Dim screenHeight As Integer = Screen.PrimaryScreen.Bounds.Height
 			If Not File.Exists(SfondoRid) Then
 				gi.Ridimensiona(Sfondo, SfondoRid, screenWidth, screenHeight)
 			End If
 			Dim bitmapSfondo As Bitmap = gi.LoadBitmapSenzaLock(SfondoRid)
+			Dim dd As Integer
 
 			Using GraphicsObject As Graphics = Graphics.FromImage(bitmapSfondo)
 				Dim bmp As Bitmap = gi.LoadBitmapSenzaLock(Immaginella)
 				' gi.ApplicaOmbraABitmap(bmp, Color.Black, Color.White, GestioneImmagini.ShadowDirections.BOTTOM_RIGHT, 180, 8, 10)
-				Dim px As Integer = (screenWidth / 2) - (bmp.Width / 2)
-				Dim py As Integer = (screenHeight / 2) - (bmp.Height / 2)
+
+				Dim px As Integer ' = (screenWidth / 2) - (bmp.Width / 2)
+				Dim py As Integer ' = (screenHeight / 2) - (bmp.Height / 2)
+
+				Randomize()
+				dd = screenWidth - bmp.Width
+				If dd <= 0 Then
+					dd = 1
+				Else
+					dd -= 10
+					If dd < 1 Then dd = 1
+				End If
+				y = yy.Next(0, dd)
+				px = y
+				Randomize()
+				dd = screenHeight - bmp.Height
+				If dd <= 0 Then
+					dd = 1
+				Else
+					dd -= 10
+					If dd < 1 Then dd = 1
+				End If
+				y = yy.Next(0, dd)
+				py = y
+
 				GraphicsObject.DrawImage(bmp, px, py)
 
-				Dim bmpTitolo As Bitmap = gi.LoadBitmapSenzaLock(Application.StartupPath & "\AppoggioTit.png")
-				px = (screenWidth / 2) - (bmpTitolo.Width / 2)
-				py = 5
 				Randomize()
-				y = yy.Next(1, 15)
-				If y > 7 Then y = 7 - y
-				px += y
+				y = yy.Next(1, 3)
+				If y = 2 Then
+					Randomize()
+					y = yy.Next(1, 10)
+					Dim bmpOggetto As Bitmap
+					Select Case y
+						Case 1, 2, 3, 4
+							Dim sOggetto As String = Application.StartupPath & "\Images\Dettagli\floppy" & y & ".png"
+							bmpOggetto = gi.LoadBitmapSenzaLock(sOggetto)
+							py = screenHeight - bmpOggetto.Height
+							y = yy.Next(10, bmpOggetto.Height - 10)
+							py += y
+						Case 5, 6
+							Dim sOggetto As String = Application.StartupPath & "\Images\Dettagli\usb" & (y - 4) & ".png"
+							bmpOggetto = gi.LoadBitmapSenzaLock(sOggetto)
+							py = 0
+							y = yy.Next(10, bmpOggetto.Height - 10)
+							py -= y
+						Case 7, 8, 9, 10
+							Dim sOggetto As String = Application.StartupPath & "\Images\Dettagli\penna" & (y - 6) & ".png"
+							bmpOggetto = gi.LoadBitmapSenzaLock(sOggetto)
+							py = 0
+							y = yy.Next(10, bmpOggetto.Height - 10)
+							py -= y
+					End Select
+					dd = screenWidth - bmpOggetto.Width
+					If dd <= 0 Then
+						dd = 1
+					Else
+						dd -= 10
+						If dd < 1 Then dd = 1
+					End If
+					y = yy.Next(0, dd)
+					px = y
+					GraphicsObject.DrawImage(bmpOggetto, px, py)
+				End If
+
+				Dim bmpTitolo As Bitmap = gi.LoadBitmapSenzaLock(Application.StartupPath & "\Images\Appoggio\AppoggioTit.png")
+				Randomize()
+				dd = screenWidth - bmp.Width
+				If dd <= 0 Then
+					dd = 1
+				Else
+					dd -= 10
+					If dd < 1 Then dd = 1
+				End If
+				y = yy.Next(0, dd)
+				px = y
+				'Randomize()
+				'y = yy.Next(0, (screenHeight - bmpTitolo.Height) - 10)
+				'py = y
 				Randomize()
 				y = yy.Next(1, 5)
 				If y > 3 Then y = 3 - y
-				py += y
+				py = 5 + y
 				GraphicsObject.DrawImage(bmpTitolo, px, py)
 			End Using
 			File.Delete(Immaginella)

@@ -302,14 +302,17 @@ Public Class GestioneImmagini
 
 		ImmaginePiccola = Converte(ImmaginePiccola)
 
-		jgpEncoder = GetEncoder(Imaging.ImageFormat.Jpeg)
+		jgpEncoder = GetEncoder(Imaging.ImageFormat.Png)
 		myEncoder = System.Drawing.Imaging.Encoder.Quality
 		Dim myEncoderParameter As New Imaging.EncoderParameter(myEncoder, 99)
 		myEncoderParameters.Param(0) = myEncoderParameter
+		Dim b As Bitmap = New Bitmap(ImmaginePiccola)
+		b.MakeTransparent(Color.Black)
 
-		ImmaginePiccola.Save(Path2, jgpEncoder, myEncoderParameters)
+		b.Save(Path2, jgpEncoder, myEncoderParameters)
 
 		ImmaginePiccola.Dispose()
+		b.Dispose()
 
 		ImmaginePiccola = Nothing
 		'ImmaginePiccola2 = Nothing
@@ -336,45 +339,45 @@ Public Class GestioneImmagini
 
 			Dim r As System.Drawing.Rectangle
 			Dim Colore As Pen = Pens.White
-			Dim ColoreNero As Pen = Pens.Black
+			Dim ColoreNero As Pen = Pens.Gray
 			Dim c As Integer = 0
 
 			r.X = 0
 			r.Y = 0
-			r.Width = originalX
-			r.Height = originalY
-
-			g.DrawRectangle(ColoreNero, r)
-
-			r.X = 1
-			r.Y = 1
 			r.Width = originalX - 1
 			r.Height = originalY - 1
 
 			g.DrawRectangle(ColoreNero, r)
 
-			For i As Integer = 2 To 11
-				r.X = i
-				r.Y = i
-				r.Width = originalX - i - 1 - r.X
-				r.Height = originalY - i - 1 - r.Y
+			r.X = 1
+			r.Y = 1
+			r.Width = originalX - 2
+			r.Height = originalY - 2
 
-				g.DrawRectangle(Colore, r)
-			Next
+			g.DrawRectangle(ColoreNero, r)
 
 			r.X = 11
 			r.Y = 11
-			r.Width = originalX - 11
-			r.Height = originalY - 11
+			r.Width = originalX - 23
+			r.Height = originalY - 23
 
 			g.DrawRectangle(ColoreNero, r)
 
 			r.X = 12
 			r.Y = 12
-			r.Width = originalX - 12
-			r.Height = originalY - 12
+			r.Width = originalX - 25
+			r.Height = originalY - 25
 
 			g.DrawRectangle(ColoreNero, r)
+
+			For i As Integer = 3 To 10
+				r.X = i
+				r.Y = i
+				r.Width = originalX - i - (r.X + 1)
+				r.Height = originalY - i - (r.Y + 1)
+
+				g.DrawRectangle(Colore, r)
+			Next
 
 			'Colore = Pens.Gray
 
@@ -1095,6 +1098,7 @@ Public Class GestioneImmagini
 			End If
 		Loop
 
+		bmp.MakeTransparent(Color.Black)
 		If Ok Then
 			Try
 				bmp.Save(Nome1, ImageFormat.Png)
