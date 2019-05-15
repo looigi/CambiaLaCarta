@@ -78,23 +78,23 @@ Public Class frmMain
 	End Sub
 
 	Private Function TornaDataImmagine(NomeFile As String) As Date
-		Dim info As New FileInfo(NomeFile)
-		Dim Datella(2) As Date
-		Datella(0) = info.LastWriteTime
-		Datella(1) = info.CreationTime
-		Datella(2) = info.LastAccessTime
-		Dim AppoData As Date
-		For i As Integer = 0 To 2
-			For k As Integer = i + 1 To 2
-				If Datella(i) > Datella(k) Then
-					AppoData = Datella(i)
-					Datella(i) = Datella(k)
-					Datella(k) = AppoData
-				End If
-			Next
-		Next
+		'Dim info As New FileInfo(NomeFile)
+		'Dim Datella(2) As Date
+		'Datella(0) = info.LastWriteTime
+		'Datella(1) = info.CreationTime
+		'Datella(2) = info.LastAccessTime
+		'Dim AppoData As Date
+		'For i As Integer = 0 To 2
+		'	For k As Integer = i + 1 To 2
+		'		If Datella(i) > Datella(k) Then
+		'			AppoData = Datella(i)
+		'			Datella(i) = Datella(k)
+		'			Datella(k) = AppoData
+		'		End If
+		'	Next
+		'Next
 
-		Return Datella(0)
+		Return File.GetLastWriteTime(NomeFile)
 	End Function
 
 	Private Sub ImpostaIcona()
@@ -300,7 +300,7 @@ Public Class frmMain
 		' frmNomeImmagine.lblNomeImmagine.Text = NomeOriginale.Replace(Percorso & "\", "") & vbCrLf & "Dimensioni: " & vDime & vbCrLf & "Data: " & TornaDataImmagine(Immaginella) & vbCrLf
 		' frmNomeImmagine.Width = frmNomeImmagine.lblNomeImmagine.Width + 10
 
-		Dim UltimaScritta As String = NomeOriginale.Replace(Percorso & "\", "") & vbCrLf & "Dimensioni: " & vDime & vbCrLf & "Data: " & TornaDataImmagine(Immaginella) & vbCrLf
+		Dim UltimaScritta As String = NomeOriginale.Replace(Percorso & "\", "") & vbCrLf & "Dimensioni: " & vDime & vbCrLf & "Data: " & TornaDataImmagine(NomeImmagine(NumeroImmagineVisualizzata)) & vbCrLf
 
 		SaveSetting("CambiaLaCarta", "Impostazioni", "UltimaScritta", UltimaScritta)
 
@@ -385,7 +385,7 @@ Public Class frmMain
 			TitoloScritta1 = Mid(TitoloScritta1, 1, TitoloScritta1.IndexOf("."))
 		End If
 		Dim TitoloScritta2 As String = "Path: " & gf.TornaNomeDirectoryDaPath(NomeOriginale.Replace(Percorso & "\", ""))
-		Dim TitoloScritta3 As String = "Dimensioni: " & vDime & " - Data: " & TornaDataImmagine(Immaginella)
+		Dim TitoloScritta3 As String = "Dimensioni: " & vDime & " - Data: " & TornaDataImmagine(NomeImmagine(NumeroImmagineVisualizzata))
 		If TitoloScritta1.Length > 38 Then
 			TitoloScritta1 = Mid(TitoloScritta1, 1, 18) & "..." & Mid(TitoloScritta1, TitoloScritta1.Length - 18, 18)
 		End If
