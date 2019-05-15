@@ -1,4 +1,5 @@
-﻿Imports System.Drawing.Imaging
+﻿Imports System.Drawing.Drawing2D
+Imports System.Drawing.Imaging
 Imports System.IO
 
 Public Class frmMain
@@ -14,6 +15,8 @@ Public Class frmMain
 	Friend WithEvents menuItem1 As System.Windows.Forms.MenuItem = New System.Windows.Forms.MenuItem
 	Friend WithEvents menuItem2 As System.Windows.Forms.MenuItem = New System.Windows.Forms.MenuItem
 	Friend WithEvents menuItem3 As System.Windows.Forms.MenuItem = New System.Windows.Forms.MenuItem
+
+	Private quanteImmSfondo As Integer = 0
 
 	'Private Sub frmMain_FormClosing(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosingEventArgs) Handles Me.FormClosing
 	'    'e.Cancel = True
@@ -59,6 +62,17 @@ Public Class frmMain
 				Exit For
 			End If
 		Next
+
+		Dim gf As New GestioneFilesDirectory
+		gf.ScansionaDirectorySingola(Application.StartupPath & "\Images\Sfondi")
+		quanteImmSfondo = 0
+		Dim filettis() As String = gf.RitornaFilesRilevati
+		For i As Integer = 1 To gf.RitornaQuantiFilesRilevati
+			If filettis(i).ToUpper.Contains(".JPG") And Not filettis(i).ToUpper.Contains("RIDOTTI") Then
+				quanteImmSfondo += 1
+			End If
+		Next
+		gf = Nothing
 
 		Me.TopMost = False
 	End Sub
@@ -191,6 +205,8 @@ Public Class frmMain
 	End Sub
 
 	Private Sub CambiaSfondo(Optional ImmagineImpostata As Integer = -1)
+		Dim rotazioneImm As Integer
+
 		Secondo = 0
 
 		Dim Key As Microsoft.Win32.RegistryKey = My.Computer.Registry.CurrentUser.OpenSubKey("Control Panel\Desktop", True)
@@ -356,10 +372,10 @@ Public Class frmMain
 		End If
 
 		'Dim bb As Bitmap = gi.LoadBitmapSenzaLock(Immaginella)
-		'gi.ApplicaOmbraABitmap(bb, Color.Gray, Color.Black)
+		'gi.ApplicaOmbraABitmap(bb, Color.DarkGray, Color.Transparent, ,,, 3, True)
 		'File.Delete(Immaginella)
-		'bb.MakeTransparent(Color.Black)
-		'bb.Save(Immaginella)
+		'' bb.MakeTransparent(Color.Red)
+		'bb.Save(Immaginella, ImageFormat.Png)
 		'bb.Dispose()
 
 		' Titolo
@@ -416,11 +432,13 @@ Public Class frmMain
 
 		Randomize()
 		Dim xx As Random = New Random()
+		Randomize()
 		Dim x As Integer = xx.Next(1, 30)
 
 		Dim b As Bitmap = gi.LoadBitmapSenzaLock(Immaginella)
 		If x / 3 = Int(x / 3) Then
 			Using GraphicsObject As Graphics = Graphics.FromImage(b)
+				Randomize()
 				x = xx.Next(1, 2)
 				If x = 1 Then
 					' Pins
@@ -450,19 +468,32 @@ Public Class frmMain
 			b.Save(Immaginella)
 		End If
 
+		Dim bmpOmbra As New Bitmap(b.Width, b.Height)
+		'Dim flagGraphics As Graphics = Graphics.FromImage(bmpOmbra)
+		'Dim c As Color = Color.FromArgb(240, 0, 0, 0)
+		'Dim brush As Brush = New SolidBrush(c)
+		'' flagGraphics.FillRectangle(brush, 0, 0, b.Width, b.Height)
+		'Dim rect As New Rectangle(0, 0, b.Width, b.Height)
+		'flagGraphics.FillRectangle(New SolidBrush(Color.FromArgb(40, 0, 0, 255)), rect)
+		'' bmpOmbra.MakeTransparent(Color.LawnGreen)
+		'bmpOmbra.Save(Application.StartupPath & "\Images\Appoggio\Ombra.png", ImageFormat.Png)
+		'bmpOmbra.Dispose()
+
 		Randomize()
 		y = yy.Next(1, 35)
 		If y > 17 Then
 			y = 17 - y
 		End If
+		rotazioneimm = y
 
 		'If x / 4 = Int(x / 4) Then
 		Randomize()
 		gi.RuotaImmagine(Immaginella, y)
+		' gi.RuotaImmagine(Application.StartupPath & "\Images\Appoggio\Ombra.png", y)
 		'End If
 
 		Select Case x
-			Case 1, 11, 21
+			Case 1
 				gi.ConverteImmaginInBN(Immaginella, Immaginella & ".BN")
 				File.Delete(Immaginella)
 				Rename(Immaginella & ".BN", Immaginella)
@@ -490,120 +521,116 @@ Public Class frmMain
 				'	gi.ConverteInHighPass2(Immaginella)
 		End Select
 
-		gf.ScansionaDirectorySingola(Application.StartupPath & "\Images\Sfondi")
-		Dim quanteImmSfondo As Integer = 0
-		Dim filettis() As String = gf.RitornaFilesRilevati
-		For i As Integer = 1 To gf.RitornaQuantiFilesRilevati
-			If filettis(i).ToUpper.Contains(".JPG") And Not filettis(i).ToUpper.Contains("RIDOTTI") Then
-				quanteImmSfondo += 1
-			End If
-		Next
-		gf = Nothing
-
 		Dim xxx As New Random
-		Dim xxxx As Integer = xxx.Next(1, quanteImmSfondo + 3)
-		If xxxx <= quanteImmSfondo Then
-			Dim Sfondo As String = Application.StartupPath & "\Images\Sfondi\" & xxxx & ".jpg"
-			Dim SfondoRid As String = Application.StartupPath & "\Images\Sfondi\Ridotti\" & System.Net.Dns.GetHostName & "_" & xxxx & ".png"
-			Dim screenWidth As Integer = Screen.PrimaryScreen.Bounds.Width
-			Dim screenHeight As Integer = Screen.PrimaryScreen.Bounds.Height
-			If Not File.Exists(SfondoRid) Then
-				gi.Ridimensiona(Sfondo, SfondoRid, screenWidth, screenHeight)
-			End If
-			Dim bitmapSfondo As Bitmap = gi.LoadBitmapSenzaLock(SfondoRid)
-			Dim dd As Integer
-
-			Using GraphicsObject As Graphics = Graphics.FromImage(bitmapSfondo)
-				Dim bmp As Bitmap = gi.LoadBitmapSenzaLock(Immaginella)
-				' gi.ApplicaOmbraABitmap(bmp, Color.Black, Color.White, GestioneImmagini.ShadowDirections.BOTTOM_RIGHT, 180, 8, 10)
-
-				Dim px As Integer ' = (screenWidth / 2) - (bmp.Width / 2)
-				Dim py As Integer ' = (screenHeight / 2) - (bmp.Height / 2)
-
-				Randomize()
-				dd = screenWidth - bmp.Width
-				If dd <= 0 Then
-					dd = 1
-				Else
-					dd -= 10
-					If dd < 1 Then dd = 1
-				End If
-				y = yy.Next(0, dd)
-				px = y
-				Randomize()
-				dd = screenHeight - bmp.Height
-				If dd <= 0 Then
-					dd = 1
-				Else
-					dd -= 10
-					If dd < 1 Then dd = 1
-				End If
-				y = yy.Next(0, dd)
-				py = y
-
-				GraphicsObject.DrawImage(bmp, px, py)
-
-				Randomize()
-				y = yy.Next(1, 3)
-				If y = 2 Then
-					Randomize()
-					y = yy.Next(1, 10)
-					Dim bmpOggetto As Bitmap
-					Select Case y
-						Case 1, 2, 3, 4
-							Dim sOggetto As String = Application.StartupPath & "\Images\Dettagli\floppy" & y & ".png"
-							bmpOggetto = gi.LoadBitmapSenzaLock(sOggetto)
-							py = screenHeight - bmpOggetto.Height
-							y = yy.Next(10, bmpOggetto.Height - 10)
-							py += y
-						Case 5, 6
-							Dim sOggetto As String = Application.StartupPath & "\Images\Dettagli\usb" & (y - 4) & ".png"
-							bmpOggetto = gi.LoadBitmapSenzaLock(sOggetto)
-							py = 0
-							y = yy.Next(10, bmpOggetto.Height - 10)
-							py -= y
-						Case 7, 8, 9, 10
-							Dim sOggetto As String = Application.StartupPath & "\Images\Dettagli\penna" & (y - 6) & ".png"
-							bmpOggetto = gi.LoadBitmapSenzaLock(sOggetto)
-							py = 0
-							y = yy.Next(10, bmpOggetto.Height - 10)
-							py -= y
-					End Select
-					dd = screenWidth - bmpOggetto.Width
-					If dd <= 0 Then
-						dd = 1
-					Else
-						dd -= 10
-						If dd < 1 Then dd = 1
-					End If
-					y = yy.Next(0, dd)
-					px = y
-					GraphicsObject.DrawImage(bmpOggetto, px, py)
-				End If
-
-				Dim bmpTitolo As Bitmap = gi.LoadBitmapSenzaLock(Application.StartupPath & "\Images\Appoggio\AppoggioTit.png")
-				Randomize()
-				dd = screenWidth - bmp.Width
-				If dd <= 0 Then
-					dd = 1
-				Else
-					dd -= 10
-					If dd < 1 Then dd = 1
-				End If
-				y = yy.Next(0, dd)
-				px = y
-				'Randomize()
-				'y = yy.Next(0, (screenHeight - bmpTitolo.Height) - 10)
-				'py = y
-				Randomize()
-				y = yy.Next(1, 5)
-				If y > 3 Then y = 3 - y
-				py = 5 + y
-				GraphicsObject.DrawImage(bmpTitolo, px, py)
-			End Using
-			File.Delete(Immaginella)
-			bitmapSfondo.Save(Immaginella)
+		Dim xxxx As Integer = xxx.Next(1, quanteImmSfondo)
+		'If xxxx <= quanteImmSfondo Then
+		Dim Sfondo As String = Application.StartupPath & "\Images\Sfondi\" & xxxx & ".jpg"
+		Dim SfondoRid As String = Application.StartupPath & "\Images\Sfondi\Ridotti\" & System.Net.Dns.GetHostName & "_" & xxxx & ".png"
+		Dim screenWidth As Integer = Screen.PrimaryScreen.Bounds.Width
+		Dim screenHeight As Integer = Screen.PrimaryScreen.Bounds.Height
+		If Not File.Exists(SfondoRid) Then
+			gi.Ridimensiona(Sfondo, SfondoRid, screenWidth, screenHeight)
 		End If
+		Dim bitmapSfondo As Bitmap = gi.LoadBitmapSenzaLock(SfondoRid)
+		Dim dd As Integer
+
+		Using GraphicsObject As Graphics = Graphics.FromImage(bitmapSfondo)
+			Dim bmp As Bitmap = gi.LoadBitmapSenzaLock(Immaginella)
+			' gi.ApplicaOmbraABitmap(bmp, Color.Black, Color.White, GestioneImmagini.ShadowDirections.BOTTOM_RIGHT, 180, 8, 10)
+
+			Dim px As Integer ' = (screenWidth / 2) - (bmp.Width / 2)
+			Dim py As Integer ' = (screenHeight / 2) - (bmp.Height / 2)
+
+			Randomize()
+			dd = screenWidth - bmp.Width
+			If dd <= 0 Then
+				dd = 1
+			Else
+				dd -= 10
+				If dd < 1 Then dd = 1
+			End If
+			y = yy.Next(0, dd)
+			px = y
+			Randomize()
+			dd = screenHeight - bmp.Height
+			If dd <= 0 Then
+				dd = 1
+			Else
+				dd -= 10
+				If dd < 1 Then dd = 1
+			End If
+			y = yy.Next(-50, dd + 50)
+			py = y
+
+			Dim flagGraphics As Graphics = Graphics.FromImage(bmpOmbra)
+			Dim rect As New Rectangle(0, 0, bmpOmbra.Width, bmpOmbra.Height)
+			flagGraphics.FillRectangle(New SolidBrush(Color.FromArgb(100, 20, 20, 20)), rect)
+			bmpOmbra = gi.RuotaImmagineSenzaSalvare(bmpOmbra, rotazioneImm)
+			GraphicsObject.DrawImage(bmpOmbra, px + 15, py + 15)
+
+			GraphicsObject.DrawImage(bmp, px, py)
+
+			Randomize()
+			y = yy.Next(1, 3)
+			If y = 2 Then
+				Randomize()
+				y = yy.Next(1, 10)
+				Dim bmpOggetto As Bitmap
+				Select Case y
+					Case 1, 2, 3, 4
+						Dim sOggetto As String = Application.StartupPath & "\Images\Dettagli\floppy" & y & ".png"
+						bmpOggetto = gi.LoadBitmapSenzaLock(sOggetto)
+						py = screenHeight - bmpOggetto.Height
+						y = yy.Next(10, bmpOggetto.Height - 10)
+						py += y
+					Case 5, 6
+						Dim sOggetto As String = Application.StartupPath & "\Images\Dettagli\usb" & (y - 4) & ".png"
+						bmpOggetto = gi.LoadBitmapSenzaLock(sOggetto)
+						py = 0
+						y = yy.Next(10, bmpOggetto.Height - 10)
+						py -= y
+					Case 7, 8, 9, 10
+						Dim sOggetto As String = Application.StartupPath & "\Images\Dettagli\penna" & (y - 6) & ".png"
+						bmpOggetto = gi.LoadBitmapSenzaLock(sOggetto)
+						py = 0
+						y = yy.Next(-50, screenHeight + 50)
+						py -= y
+				End Select
+				dd = screenWidth - bmpOggetto.Width
+				If dd <= 0 Then
+					dd = 1
+				Else
+					dd -= 10
+					If dd < 1 Then dd = 1
+				End If
+				y = yy.Next(0, dd)
+				px = y
+				GraphicsObject.DrawImage(bmpOggetto, px, py)
+			End If
+
+			Dim bmpTitolo As Bitmap = gi.LoadBitmapSenzaLock(Application.StartupPath & "\Images\Appoggio\AppoggioTit.png")
+			Randomize()
+			dd = screenWidth - bmp.Width
+			If dd <= 0 Then
+				dd = 1
+			Else
+				dd -= 10
+				If dd < 1 Then dd = 1
+			End If
+			y = yy.Next(0, dd)
+			px = y
+			'Randomize()
+			'y = yy.Next(0, (screenHeight - bmpTitolo.Height) - 10)
+			'py = y
+			Randomize()
+			y = yy.Next(1, 5)
+			If y > 3 Then y = 3 - y
+			py = 5 + y
+			GraphicsObject.DrawImage(bmpTitolo, px, py)
+		End Using
+		File.Delete(Immaginella)
+		bitmapSfondo.Save(Immaginella)
+		'End If
 
 		gi = Nothing
 

@@ -1008,6 +1008,72 @@ Public Class GestioneImmagini
 		RinominaBitmap(rotatedImage, NomeBmp & ".ROT", NomeBmp)
 	End Sub
 
+	Public Function RuotaImmagineSenzaSalvare(bm_in As Bitmap, angolo As Single) As Bitmap
+		' Copy the output bitmap from the source image.
+		' Make an array of points defining the
+		' image's corners.
+		Dim wid As Single = bm_in.Width
+		Dim hgt As Single = bm_in.Height
+		Dim corners As Point() = {
+			New Point(0, 0),
+			New Point(wid, 0),
+			New Point(0, hgt),
+			New Point(wid, hgt)}
+
+		' Translate to center the bounding box at the origin.
+		Dim cx As Single = wid / 2
+		Dim cy As Single = hgt / 2
+		Dim i As Long
+		For i = 0 To 3
+			corners(i).X -= cx
+			corners(i).Y -= cy
+		Next i
+
+		' Rotate.
+		Dim theta As Single = angolo * Math.PI _
+			/ 180.0
+		Dim sin_theta As Single = Math.Sin(theta)
+		Dim cos_theta As Single = Math.Cos(theta)
+		Dim X As Single
+		Dim Y As Single
+		For i = 0 To 3
+			X = corners(i).X
+			Y = corners(i).Y
+			corners(i).X = X * cos_theta + Y * sin_theta
+			corners(i).Y = -X * sin_theta + Y * cos_theta
+		Next i
+
+		' Translate so X >= 0 and Y >=0 for all corners.
+		Dim xmin As Single = corners(0).X
+		Dim ymin As Single = corners(0).Y
+		For i = 1 To 3
+			If xmin > corners(i).X Then xmin = corners(i).X
+			If ymin > corners(i).Y Then ymin = corners(i).Y
+		Next i
+		For i = 0 To 3
+			corners(i).X -= xmin
+			corners(i).Y -= ymin
+		Next i
+
+		' Create an output Bitmap and Graphics object.
+		Dim bm_out As New Bitmap(CInt(-2 * xmin), CInt(-2 *
+			ymin))
+		Dim gr_out As Graphics = Graphics.FromImage(bm_out)
+		' gr_out.Clear(Color.Azure)
+
+		' Drop the last corner lest we confuse DrawImage, 
+		' which expects an array of three corners.
+		ReDim Preserve corners(2)
+
+		' Draw the result onto the output Bitmap.
+		gr_out.DrawImage(bm_in, corners)
+		' bm_out.MakeTransparent(Color.Azure)
+
+		' Display the result.
+		' RinominaBitmap(bm_out, NomeBmp & ".RUO", NomeBmp)
+		Return bm_out
+	End Function
+
 	Public Sub RuotaImmagine(NomeBmp As String, angolo As Single)
 		Dim bm_in As Bitmap = LoadBitmapSenzaLock(NomeBmp)
 
@@ -1060,8 +1126,8 @@ Public Class GestioneImmagini
 		' Create an output Bitmap and Graphics object.
 		Dim bm_out As New Bitmap(CInt(-2 * xmin), CInt(-2 *
 			ymin))
-		bm_out.MakeTransparent(Color.Black)
 		Dim gr_out As Graphics = Graphics.FromImage(bm_out)
+		gr_out.Clear(Color.Azure)
 
 		' Drop the last corner lest we confuse DrawImage, 
 		' which expects an array of three corners.
@@ -1069,9 +1135,13 @@ Public Class GestioneImmagini
 
 		' Draw the result onto the output Bitmap.
 		gr_out.DrawImage(bm_in, corners)
+		bm_out.MakeTransparent(Color.Azure)
+
+		File.Delete(NomeBmp)
+		bm_out.Save(NomeBmp)
 
 		' Display the result.
-		RinominaBitmap(bm_out, NomeBmp & ".RUO", NomeBmp)
+		' RinominaBitmap(bm_out, NomeBmp & ".RUO", NomeBmp)
 	End Sub
 
 	Public Function LoadBitmapSenzaLock(NomeBmp As String) As Bitmap
