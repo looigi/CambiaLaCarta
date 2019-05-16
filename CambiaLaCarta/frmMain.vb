@@ -37,9 +37,28 @@ Public Class frmMain
 
 		NumeroImmagineVisualizzata = GetSetting("CambiaLaCarta", "Impostazioni", "ImmagineVisualizzata", 0)
 
-		Dim Cornice As String = GetSetting("CambiaLaCarta", "Impostazioni", "Cornice", "True")
-
-		If Cornice = "True" Then chkCornice.Checked = True Else chkCornice.Checked = False
+		Dim ValoreCheck As String = GetSetting("CambiaLaCarta", "Impostazioni", "Cornice", "True")
+		If ValoreCheck = "True" Then chkCornice.Checked = True Else chkCornice.Checked = False
+		ValoreCheck = GetSetting("CambiaLaCarta", "Impostazioni", "BN", True)
+		If ValoreCheck = "True" Then chkBN.Checked = True Else chkBN.Checked = False
+		ValoreCheck = GetSetting("CambiaLaCarta", "Impostazioni", "Seppia", True)
+		If ValoreCheck = "True" Then chkSeppia.Checked = True Else chkSeppia.Checked = False
+		ValoreCheck = GetSetting("CambiaLaCarta", "Impostazioni", "Pixelate", True)
+		If ValoreCheck = "True" Then chkPixelate.Checked = True Else chkPixelate.Checked = False
+		ValoreCheck = GetSetting("CambiaLaCarta", "Impostazioni", "NomeImm", True)
+		If ValoreCheck = "True" Then chkNomeImm.Checked = True Else chkNomeImm.Checked = False
+		ValoreCheck = GetSetting("CambiaLaCarta", "Impostazioni", "Sfondo", True)
+		If ValoreCheck = "True" Then chkSfondo.Checked = True Else chkSfondo.Checked = False
+		ValoreCheck = GetSetting("CambiaLaCarta", "Impostazioni", "Rotazione", True)
+		If ValoreCheck = "True" Then chkRotazione.Checked = True Else chkRotazione.Checked = False
+		ValoreCheck = GetSetting("CambiaLaCarta", "Impostazioni", "Pin", True)
+		If ValoreCheck = "True" Then chkPin.Checked = True Else chkPin.Checked = False
+		ValoreCheck = GetSetting("CambiaLaCarta", "Impostazioni", "Ombra", True)
+		If ValoreCheck = "True" Then chkOmbra.Checked = True Else chkOmbra.Checked = False
+		ValoreCheck = GetSetting("CambiaLaCarta", "Impostazioni", "Oggetti", True)
+		If ValoreCheck = "True" Then chkOggetti.Checked = True Else chkOggetti.Checked = False
+		ValoreCheck = GetSetting("CambiaLaCarta", "Impostazioni", "Blur", True)
+		If ValoreCheck = "True" Then chkBlur.Checked = True Else chkBlur.Checked = False
 
 		ImpostaOptions()
 
@@ -427,7 +446,9 @@ Public Class frmMain
 			y = 7 - y
 		End If
 
-		gi.RuotaImmagine(Application.StartupPath & "\Images\Appoggio\AppoggioTit.png", y)
+		If chkRotazione.Checked Then
+			gi.RuotaImmagine(Application.StartupPath & "\Images\Appoggio\AppoggioTit.png", y)
+		End If
 		' Titolo
 
 		Randomize()
@@ -436,36 +457,38 @@ Public Class frmMain
 		Dim x As Integer = xx.Next(1, 30)
 
 		Dim b As Bitmap = gi.LoadBitmapSenzaLock(Immaginella)
-		If x / 3 = Int(x / 3) Then
-			Using GraphicsObject As Graphics = Graphics.FromImage(b)
-				Randomize()
-				x = xx.Next(1, 2)
-				If x = 1 Then
-					' Pins
-					Dim Pin1 As String = Application.StartupPath & "\Images\Pins\4.png"
+		If chkPin.Checked = True Then
+			If x / 3 = Int(x / 3) Then
+				Using GraphicsObject As Graphics = Graphics.FromImage(b)
+					Randomize()
+					x = xx.Next(1, 2)
+					If x = 1 Then
+						' Pins
+						Dim Pin1 As String = Application.StartupPath & "\Images\Pins\4.png"
 
-					Dim bmpPins As Bitmap = gi.LoadBitmapSenzaLock(Pin1)
-					GraphicsObject.DrawImage(bmpPins, 20, 20)
+						Dim bmpPins As Bitmap = gi.LoadBitmapSenzaLock(Pin1)
+						GraphicsObject.DrawImage(bmpPins, 20, 20)
 
-					bmpPins = gi.LoadBitmapSenzaLock(Pin1)
-					GraphicsObject.DrawImage(bmpPins, b.Width - bmpPins.Width, 20)
+						bmpPins = gi.LoadBitmapSenzaLock(Pin1)
+						GraphicsObject.DrawImage(bmpPins, b.Width - bmpPins.Width, 20)
 
-					bmpPins = gi.LoadBitmapSenzaLock(Pin1)
-					GraphicsObject.DrawImage(bmpPins, 0, b.Height - bmpPins.Height)
+						bmpPins = gi.LoadBitmapSenzaLock(Pin1)
+						GraphicsObject.DrawImage(bmpPins, 0, b.Height - bmpPins.Height)
 
-					bmpPins = gi.LoadBitmapSenzaLock(Pin1)
-					GraphicsObject.DrawImage(bmpPins, b.Width - bmpPins.Width, b.Height - bmpPins.Height)
-					' Pins
-				Else
-					' Graffetta
-					Dim Graffetta As String = Application.StartupPath & "\Images\Dettagli\Graffetta.png"
-					Dim bmpGraffetta As Bitmap = gi.LoadBitmapSenzaLock(Graffetta)
-					GraphicsObject.DrawImage(bmpGraffetta, 30, -5)
-					' Graffetta
-				End If
-			End Using
-			File.Delete(Immaginella)
-			b.Save(Immaginella)
+						bmpPins = gi.LoadBitmapSenzaLock(Pin1)
+						GraphicsObject.DrawImage(bmpPins, b.Width - bmpPins.Width, b.Height - bmpPins.Height)
+						' Pins
+					Else
+						' Graffetta
+						Dim Graffetta As String = Application.StartupPath & "\Images\Dettagli\Graffetta.png"
+						Dim bmpGraffetta As Bitmap = gi.LoadBitmapSenzaLock(Graffetta)
+						GraphicsObject.DrawImage(bmpGraffetta, 30, -5)
+						' Graffetta
+					End If
+				End Using
+				File.Delete(Immaginella)
+				b.Save(Immaginella)
+			End If
 		End If
 
 		Dim bmpOmbra As New Bitmap(b.Width, b.Height)
@@ -488,25 +511,35 @@ Public Class frmMain
 
 		'If x / 4 = Int(x / 4) Then
 		Randomize()
-		gi.RuotaImmagine(Immaginella, y)
+		If chkRotazione.Checked Then
+			gi.RuotaImmagine(Immaginella, y)
+		End If
 		' gi.RuotaImmagine(Application.StartupPath & "\Images\Appoggio\Ombra.png", y)
 		'End If
 
 		Select Case x
 			Case 1
-				gi.ConverteImmaginInBN(Immaginella, Immaginella & ".BN")
-				File.Delete(Immaginella)
-				Rename(Immaginella & ".BN", Immaginella)
+				If chkBN.Checked Then
+					gi.ConverteImmaginInBN(Immaginella, Immaginella & ".BN")
+					File.Delete(Immaginella)
+					Rename(Immaginella & ".BN", Immaginella)
+				End If
 			Case 2, 12, 22
-				gi.ConverteInBlur1(Immaginella)
+				If chkBlur.Checked Then
+					gi.ConverteInBlur1(Immaginella)
+				End If
 			Case 3, 13, 23
-				gi.ConverteInSeppia(Immaginella)
+				If chkSeppia.Checked Then
+					gi.ConverteInSeppia(Immaginella)
+				End If
 			Case 4
 				' gi.ConverteEdge(Immaginella)
 			'Case 5
 			'	gi.ConverteXRay(Immaginella)
 			Case 6, 14, 24
-				gi.ConverteInBlur2(Immaginella)
+				If chkBlur.Checked Then
+					gi.ConverteInBlur2(Immaginella)
+				End If
 			'Case 7
 			'	gi.ConverteInEmboss1(Immaginella)
 			'Case 8
@@ -514,7 +547,9 @@ Public Class frmMain
 			'Case 9
 			'	gi.ConverteInPixel(Immaginella)
 			Case 10
-				gi.ConverteInPointellate(Immaginella)
+				If chkPixelate.Checked Then
+					gi.ConverteInPointellate(Immaginella)
+				End If
 				'Case 11
 				'	gi.ConverteInHighPass1(Immaginella)
 				'Case 12
@@ -531,72 +566,24 @@ Public Class frmMain
 		If Not File.Exists(SfondoRid) Then
 			gi.Ridimensiona(Sfondo, SfondoRid, screenWidth, screenHeight)
 		End If
-		Dim bitmapSfondo As Bitmap = gi.LoadBitmapSenzaLock(SfondoRid)
+		Dim bitmapSfondo As Bitmap
+		Dim bmp As Bitmap = gi.LoadBitmapSenzaLock(Immaginella)
+		If chkSfondo.Checked Then
+			bitmapSfondo = gi.LoadBitmapSenzaLock(SfondoRid)
+		Else
+			bitmapSfondo = New Bitmap(bmp.Width, bmp.Height)
+		End If
 		Dim dd As Integer
 
 		Using GraphicsObject As Graphics = Graphics.FromImage(bitmapSfondo)
-			Dim bmp As Bitmap = gi.LoadBitmapSenzaLock(Immaginella)
 			' gi.ApplicaOmbraABitmap(bmp, Color.Black, Color.White, GestioneImmagini.ShadowDirections.BOTTOM_RIGHT, 180, 8, 10)
 
 			Dim px As Integer ' = (screenWidth / 2) - (bmp.Width / 2)
 			Dim py As Integer ' = (screenHeight / 2) - (bmp.Height / 2)
 
-			Randomize()
-			dd = screenWidth - bmp.Width
-			If dd <= 0 Then
-				dd = 1
-			Else
-				dd -= 10
-				If dd < 1 Then dd = 1
-			End If
-			y = yy.Next(0, dd)
-			px = y
-			Randomize()
-			dd = screenHeight - bmp.Height
-			If dd <= 0 Then
-				dd = 1
-			Else
-				dd -= 10
-				If dd < 1 Then dd = 1
-			End If
-			y = yy.Next(-50, dd + 50)
-			py = y
-
-			Dim flagGraphics As Graphics = Graphics.FromImage(bmpOmbra)
-			Dim rect As New Rectangle(0, 0, bmpOmbra.Width, bmpOmbra.Height)
-			flagGraphics.FillRectangle(New SolidBrush(Color.FromArgb(100, 20, 20, 20)), rect)
-			bmpOmbra = gi.RuotaImmagineSenzaSalvare(bmpOmbra, rotazioneImm)
-			GraphicsObject.DrawImage(bmpOmbra, px + 15, py + 15)
-
-			GraphicsObject.DrawImage(bmp, px, py)
-
-			Randomize()
-			y = yy.Next(1, 3)
-			If y = 2 Then
+			If chkOmbra.Checked Then
 				Randomize()
-				y = yy.Next(1, 10)
-				Dim bmpOggetto As Bitmap
-				Select Case y
-					Case 1, 2, 3, 4
-						Dim sOggetto As String = Application.StartupPath & "\Images\Dettagli\floppy" & y & ".png"
-						bmpOggetto = gi.LoadBitmapSenzaLock(sOggetto)
-						py = screenHeight - bmpOggetto.Height
-						y = yy.Next(10, bmpOggetto.Height - 10)
-						py += y
-					Case 5, 6
-						Dim sOggetto As String = Application.StartupPath & "\Images\Dettagli\usb" & (y - 4) & ".png"
-						bmpOggetto = gi.LoadBitmapSenzaLock(sOggetto)
-						py = 0
-						y = yy.Next(10, bmpOggetto.Height - 10)
-						py -= y
-					Case 7, 8, 9, 10
-						Dim sOggetto As String = Application.StartupPath & "\Images\Dettagli\penna" & (y - 6) & ".png"
-						bmpOggetto = gi.LoadBitmapSenzaLock(sOggetto)
-						py = 0
-						y = yy.Next(-50, screenHeight + 50)
-						py -= y
-				End Select
-				dd = screenWidth - bmpOggetto.Width
+				dd = screenWidth - bmp.Width
 				If dd <= 0 Then
 					dd = 1
 				Else
@@ -605,28 +592,90 @@ Public Class frmMain
 				End If
 				y = yy.Next(0, dd)
 				px = y
-				GraphicsObject.DrawImage(bmpOggetto, px, py)
+				Randomize()
+				dd = screenHeight - bmp.Height
+				If dd <= 0 Then
+					dd = 1
+				Else
+					dd -= 10
+					If dd < 1 Then dd = 1
+				End If
+				y = yy.Next(-50, dd + 50)
+				py = y
+
+				Dim flagGraphics As Graphics = Graphics.FromImage(bmpOmbra)
+				Dim rect As New Rectangle(0, 0, bmpOmbra.Width, bmpOmbra.Height)
+				flagGraphics.FillRectangle(New SolidBrush(Color.FromArgb(100, 20, 20, 20)), rect)
+				If chkOmbra.Checked Then
+					bmpOmbra = gi.RuotaImmagineSenzaSalvare(bmpOmbra, rotazioneImm)
+				End If
+
+				GraphicsObject.DrawImage(bmpOmbra, px + 15, py + 15)
 			End If
 
-			Dim bmpTitolo As Bitmap = gi.LoadBitmapSenzaLock(Application.StartupPath & "\Images\Appoggio\AppoggioTit.png")
-			Randomize()
-			dd = screenWidth - bmp.Width
-			If dd <= 0 Then
-				dd = 1
-			Else
-				dd -= 10
-				If dd < 1 Then dd = 1
+			GraphicsObject.DrawImage(bmp, px, py)
+
+			If chkOggetti.Checked Then
+				Randomize()
+				y = yy.Next(1, 3)
+				If y = 2 Then
+					Randomize()
+					y = yy.Next(1, 10)
+					Dim bmpOggetto As Bitmap
+					Select Case y
+						Case 1, 2, 3, 4
+							Dim sOggetto As String = Application.StartupPath & "\Images\Dettagli\floppy" & y & ".png"
+							bmpOggetto = gi.LoadBitmapSenzaLock(sOggetto)
+							py = screenHeight - bmpOggetto.Height
+							y = yy.Next(10, bmpOggetto.Height - 10)
+							py += y
+						Case 5, 6
+							Dim sOggetto As String = Application.StartupPath & "\Images\Dettagli\usb" & (y - 4) & ".png"
+							bmpOggetto = gi.LoadBitmapSenzaLock(sOggetto)
+							py = 0
+							y = yy.Next(10, bmpOggetto.Height - 10)
+							py -= y
+						Case 7, 8, 9, 10
+							Dim sOggetto As String = Application.StartupPath & "\Images\Dettagli\penna" & (y - 6) & ".png"
+							bmpOggetto = gi.LoadBitmapSenzaLock(sOggetto)
+							py = 0
+							y = yy.Next(-50, screenHeight + 50)
+							py -= y
+					End Select
+					dd = screenWidth - bmpOggetto.Width
+					If dd <= 0 Then
+						dd = 1
+					Else
+						dd -= 10
+						If dd < 1 Then dd = 1
+					End If
+					y = yy.Next(0, dd)
+					px = y
+					GraphicsObject.DrawImage(bmpOggetto, px, py)
+				End If
 			End If
-			y = yy.Next(0, dd)
-			px = y
-			'Randomize()
-			'y = yy.Next(0, (screenHeight - bmpTitolo.Height) - 10)
-			'py = y
-			Randomize()
-			y = yy.Next(1, 5)
-			If y > 3 Then y = 3 - y
-			py = 5 + y
-			GraphicsObject.DrawImage(bmpTitolo, px, py)
+
+			If chkNomeImm.Checked Then
+				Dim bmpTitolo As Bitmap = gi.LoadBitmapSenzaLock(Application.StartupPath & "\Images\Appoggio\AppoggioTit.png")
+				Randomize()
+				dd = screenWidth - bmp.Width
+				If dd <= 0 Then
+					dd = 1
+				Else
+					dd -= 10
+					If dd < 1 Then dd = 1
+				End If
+				y = yy.Next(0, dd)
+				px = y
+				'Randomize()
+				'y = yy.Next(0, (screenHeight - bmpTitolo.Height) - 10)
+				'py = y
+				Randomize()
+				y = yy.Next(1, 5)
+				If y > 3 Then y = 3 - y
+				py = 5 + y
+				GraphicsObject.DrawImage(bmpTitolo, px, py)
+			End If
 		End Using
 		File.Delete(Immaginella)
 		bitmapSfondo.Save(Immaginella)
@@ -815,18 +864,7 @@ Public Class frmMain
 	End Sub
 
 	Private Sub chkCornice_Click(sender As Object, e As EventArgs) Handles chkCornice.Click
-		Dim Cosa As String
-
-		Select Case chkCornice.Checked
-			Case True
-				Cosa = "True"
-			Case False
-				Cosa = "False"
-			Case Else
-				Cosa = "True"
-		End Select
-
-		SaveSetting("CambiaLaCarta", "Impostazioni", "Cornice", Cosa)
+		SaveSetting("CambiaLaCarta", "Impostazioni", "Cornice", ControllaCheck(chkCornice))
 	End Sub
 
 	Private Sub cmdDelete_Click(sender As Object, e As EventArgs) Handles cmdDelete.Click
@@ -846,5 +884,60 @@ Public Class frmMain
 
 			End Try
 		End If
+	End Sub
+
+	Private Function ControllaCheck(chk As CheckBox) As String
+		Dim Cosa As String
+
+		Select Case chkBN.Checked
+			Case True
+				Cosa = "True"
+			Case False
+				Cosa = "False"
+			Case Else
+				Cosa = "True"
+		End Select
+
+		Return Cosa
+	End Function
+
+	Private Sub chkBN_Click(sender As Object, e As EventArgs) Handles chkBN.Click
+		SaveSetting("CambiaLaCarta", "Impostazioni", "BN", ControllaCheck(chkBN))
+	End Sub
+
+	Private Sub chkSeppia_Click(sender As Object, e As EventArgs) Handles chkSeppia.Click
+		SaveSetting("CambiaLaCarta", "Impostazioni", "Seppia", ControllaCheck(chkSeppia))
+	End Sub
+
+	Private Sub chkPixelate_Click(sender As Object, e As EventArgs) Handles chkPixelate.Click
+		SaveSetting("CambiaLaCarta", "Impostazioni", "Pixelate", ControllaCheck(chkPixelate))
+	End Sub
+
+	Private Sub chkNomeImm_Click(sender As Object, e As EventArgs) Handles chkNomeImm.Click
+		SaveSetting("CambiaLaCarta", "Impostazioni", "NomeImm", ControllaCheck(chkNomeImm))
+	End Sub
+
+	Private Sub chkSfondo_Click(sender As Object, e As EventArgs) Handles chkSfondo.Click
+		SaveSetting("CambiaLaCarta", "Impostazioni", "Sfondo", ControllaCheck(chkSfondo))
+	End Sub
+
+	Private Sub chkRotazione_Click(sender As Object, e As EventArgs) Handles chkRotazione.Click
+		SaveSetting("CambiaLaCarta", "Impostazioni", "Rotazione", ControllaCheck(chkRotazione))
+	End Sub
+
+	Private Sub chkPin_Click(sender As Object, e As EventArgs) Handles chkPin.Click
+		SaveSetting("CambiaLaCarta", "Impostazioni", "Pin", ControllaCheck(chkPin))
+	End Sub
+
+	Private Sub chkOmbra_Click(sender As Object, e As EventArgs) Handles chkOmbra.Click
+		SaveSetting("CambiaLaCarta", "Impostazioni", "Ombra", ControllaCheck(chkOmbra))
+	End Sub
+
+	Private Sub chkOggetti_Click(sender As Object, e As EventArgs) Handles chkOggetti.Click
+		SaveSetting("CambiaLaCarta", "Impostazioni", "Oggetti", ControllaCheck(chkOggetti))
+	End Sub
+
+	Private Sub chkBlur_Click(sender As Object, e As EventArgs) Handles chkBlur.Click
+		SaveSetting("CambiaLaCarta", "Impostazioni", "Blur", ControllaCheck(chkBlur))
 	End Sub
 End Class

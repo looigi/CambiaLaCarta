@@ -42,11 +42,11 @@ Partial Class frmMain
 		Me.lblSecondi = New System.Windows.Forms.Label()
 		Me.Label2 = New System.Windows.Forms.Label()
 		Me.Panel3 = New System.Windows.Forms.Panel()
-		Me.chkCornice = New System.Windows.Forms.CheckBox()
 		Me.optNormale = New System.Windows.Forms.RadioButton()
 		Me.Label3 = New System.Windows.Forms.Label()
 		Me.optAdatta = New System.Windows.Forms.RadioButton()
 		Me.optTuttoSchermo = New System.Windows.Forms.RadioButton()
+		Me.chkCornice = New System.Windows.Forms.CheckBox()
 		Me.cmdRefresh = New System.Windows.Forms.Button()
 		Me.Panel4 = New System.Windows.Forms.Panel()
 		Me.cmdPausa = New System.Windows.Forms.Button()
@@ -56,12 +56,25 @@ Partial Class frmMain
 		Me.cmdChiude = New System.Windows.Forms.Button()
 		Me.cmdDelete = New System.Windows.Forms.Button()
 		Me.PictureBox1 = New System.Windows.Forms.PictureBox()
+		Me.Panel5 = New System.Windows.Forms.Panel()
+		Me.chkOggetti = New System.Windows.Forms.CheckBox()
+		Me.chkOmbra = New System.Windows.Forms.CheckBox()
+		Me.chkPin = New System.Windows.Forms.CheckBox()
+		Me.chkRotazione = New System.Windows.Forms.CheckBox()
+		Me.chkSfondo = New System.Windows.Forms.CheckBox()
+		Me.chkNomeImm = New System.Windows.Forms.CheckBox()
+		Me.chkPixelate = New System.Windows.Forms.CheckBox()
+		Me.chkSeppia = New System.Windows.Forms.CheckBox()
+		Me.chkBN = New System.Windows.Forms.CheckBox()
+		Me.Label5 = New System.Windows.Forms.Label()
+		Me.chkBlur = New System.Windows.Forms.CheckBox()
 		CType(Me.picImmagine, System.ComponentModel.ISupportInitialize).BeginInit()
 		Me.Panel1.SuspendLayout()
 		Me.Panel2.SuspendLayout()
 		Me.Panel3.SuspendLayout()
 		Me.Panel4.SuspendLayout()
 		CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
+		Me.Panel5.SuspendLayout()
 		Me.SuspendLayout()
 		'
 		'Timer1
@@ -239,7 +252,6 @@ Partial Class frmMain
 		'Panel3
 		'
 		Me.Panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-		Me.Panel3.Controls.Add(Me.chkCornice)
 		Me.Panel3.Controls.Add(Me.optNormale)
 		Me.Panel3.Controls.Add(Me.Label3)
 		Me.Panel3.Controls.Add(Me.optAdatta)
@@ -248,17 +260,6 @@ Partial Class frmMain
 		Me.Panel3.Name = "Panel3"
 		Me.Panel3.Size = New System.Drawing.Size(179, 96)
 		Me.Panel3.TabIndex = 9
-		'
-		'chkCornice
-		'
-		Me.chkCornice.AutoSize = True
-		Me.chkCornice.Font = New System.Drawing.Font("Arial Narrow", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-		Me.chkCornice.Location = New System.Drawing.Point(102, 72)
-		Me.chkCornice.Name = "chkCornice"
-		Me.chkCornice.Size = New System.Drawing.Size(64, 20)
-		Me.chkCornice.TabIndex = 11
-		Me.chkCornice.Text = "Cornice"
-		Me.chkCornice.UseVisualStyleBackColor = True
 		'
 		'optNormale
 		'
@@ -304,6 +305,17 @@ Partial Class frmMain
 		Me.optTuttoSchermo.TabStop = True
 		Me.optTuttoSchermo.Text = "Tutto schermo"
 		Me.optTuttoSchermo.UseVisualStyleBackColor = True
+		'
+		'chkCornice
+		'
+		Me.chkCornice.AutoSize = True
+		Me.chkCornice.Font = New System.Drawing.Font("Arial Narrow", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+		Me.chkCornice.Location = New System.Drawing.Point(326, 20)
+		Me.chkCornice.Name = "chkCornice"
+		Me.chkCornice.Size = New System.Drawing.Size(64, 20)
+		Me.chkCornice.TabIndex = 11
+		Me.chkCornice.Text = "Cornice"
+		Me.chkCornice.UseVisualStyleBackColor = True
 		'
 		'cmdRefresh
 		'
@@ -388,12 +400,152 @@ Partial Class frmMain
 		Me.PictureBox1.TabStop = False
 		Me.PictureBox1.Visible = False
 		'
+		'Panel5
+		'
+		Me.Panel5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+		Me.Panel5.Controls.Add(Me.chkBlur)
+		Me.Panel5.Controls.Add(Me.chkOggetti)
+		Me.Panel5.Controls.Add(Me.chkOmbra)
+		Me.Panel5.Controls.Add(Me.chkPin)
+		Me.Panel5.Controls.Add(Me.chkRotazione)
+		Me.Panel5.Controls.Add(Me.chkSfondo)
+		Me.Panel5.Controls.Add(Me.chkCornice)
+		Me.Panel5.Controls.Add(Me.chkNomeImm)
+		Me.Panel5.Controls.Add(Me.chkPixelate)
+		Me.Panel5.Controls.Add(Me.chkSeppia)
+		Me.Panel5.Controls.Add(Me.chkBN)
+		Me.Panel5.Controls.Add(Me.Label5)
+		Me.Panel5.Location = New System.Drawing.Point(12, 332)
+		Me.Panel5.Name = "Panel5"
+		Me.Panel5.Size = New System.Drawing.Size(533, 66)
+		Me.Panel5.TabIndex = 23
+		'
+		'chkOggetti
+		'
+		Me.chkOggetti.AutoSize = True
+		Me.chkOggetti.Font = New System.Drawing.Font("Arial Narrow", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+		Me.chkOggetti.Location = New System.Drawing.Point(148, 41)
+		Me.chkOggetti.Name = "chkOggetti"
+		Me.chkOggetti.Size = New System.Drawing.Size(59, 20)
+		Me.chkOggetti.TabIndex = 20
+		Me.chkOggetti.Text = "Oggetti"
+		Me.chkOggetti.UseVisualStyleBackColor = True
+		'
+		'chkOmbra
+		'
+		Me.chkOmbra.AutoSize = True
+		Me.chkOmbra.Font = New System.Drawing.Font("Arial Narrow", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+		Me.chkOmbra.Location = New System.Drawing.Point(78, 41)
+		Me.chkOmbra.Name = "chkOmbra"
+		Me.chkOmbra.Size = New System.Drawing.Size(59, 20)
+		Me.chkOmbra.TabIndex = 19
+		Me.chkOmbra.Text = "Ombra"
+		Me.chkOmbra.UseVisualStyleBackColor = True
+		'
+		'chkPin
+		'
+		Me.chkPin.AutoSize = True
+		Me.chkPin.Font = New System.Drawing.Font("Arial Narrow", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+		Me.chkPin.Location = New System.Drawing.Point(8, 41)
+		Me.chkPin.Name = "chkPin"
+		Me.chkPin.Size = New System.Drawing.Size(42, 20)
+		Me.chkPin.TabIndex = 18
+		Me.chkPin.Text = "Pin"
+		Me.chkPin.UseVisualStyleBackColor = True
+		'
+		'chkRotazione
+		'
+		Me.chkRotazione.AutoSize = True
+		Me.chkRotazione.Font = New System.Drawing.Font("Arial Narrow", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+		Me.chkRotazione.Location = New System.Drawing.Point(326, 41)
+		Me.chkRotazione.Name = "chkRotazione"
+		Me.chkRotazione.Size = New System.Drawing.Size(74, 20)
+		Me.chkRotazione.TabIndex = 17
+		Me.chkRotazione.Text = "Rotazione"
+		Me.chkRotazione.UseVisualStyleBackColor = True
+		'
+		'chkSfondo
+		'
+		Me.chkSfondo.AutoSize = True
+		Me.chkSfondo.Font = New System.Drawing.Font("Arial Narrow", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+		Me.chkSfondo.Location = New System.Drawing.Point(218, 41)
+		Me.chkSfondo.Name = "chkSfondo"
+		Me.chkSfondo.Size = New System.Drawing.Size(60, 20)
+		Me.chkSfondo.TabIndex = 16
+		Me.chkSfondo.Text = "Sfondo"
+		Me.chkSfondo.UseVisualStyleBackColor = True
+		'
+		'chkNomeImm
+		'
+		Me.chkNomeImm.AutoSize = True
+		Me.chkNomeImm.Font = New System.Drawing.Font("Arial Narrow", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+		Me.chkNomeImm.Location = New System.Drawing.Point(218, 20)
+		Me.chkNomeImm.Name = "chkNomeImm"
+		Me.chkNomeImm.Size = New System.Drawing.Size(102, 20)
+		Me.chkNomeImm.TabIndex = 15
+		Me.chkNomeImm.Text = "Nome immagine"
+		Me.chkNomeImm.UseVisualStyleBackColor = True
+		'
+		'chkPixelate
+		'
+		Me.chkPixelate.AutoSize = True
+		Me.chkPixelate.Font = New System.Drawing.Font("Arial Narrow", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+		Me.chkPixelate.Location = New System.Drawing.Point(148, 20)
+		Me.chkPixelate.Name = "chkPixelate"
+		Me.chkPixelate.Size = New System.Drawing.Size(64, 20)
+		Me.chkPixelate.TabIndex = 14
+		Me.chkPixelate.Text = "Pixelate"
+		Me.chkPixelate.UseVisualStyleBackColor = True
+		'
+		'chkSeppia
+		'
+		Me.chkSeppia.AutoSize = True
+		Me.chkSeppia.Font = New System.Drawing.Font("Arial Narrow", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+		Me.chkSeppia.Location = New System.Drawing.Point(78, 20)
+		Me.chkSeppia.Name = "chkSeppia"
+		Me.chkSeppia.Size = New System.Drawing.Size(60, 20)
+		Me.chkSeppia.TabIndex = 13
+		Me.chkSeppia.Text = "Seppia"
+		Me.chkSeppia.UseVisualStyleBackColor = True
+		'
+		'chkBN
+		'
+		Me.chkBN.AutoSize = True
+		Me.chkBN.Font = New System.Drawing.Font("Arial Narrow", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+		Me.chkBN.Location = New System.Drawing.Point(8, 20)
+		Me.chkBN.Name = "chkBN"
+		Me.chkBN.Size = New System.Drawing.Size(45, 20)
+		Me.chkBN.TabIndex = 12
+		Me.chkBN.Text = "B/N"
+		Me.chkBN.UseVisualStyleBackColor = True
+		'
+		'Label5
+		'
+		Me.Label5.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+		Me.Label5.Location = New System.Drawing.Point(4, 0)
+		Me.Label5.Name = "Label5"
+		Me.Label5.Size = New System.Drawing.Size(97, 17)
+		Me.Label5.TabIndex = 10
+		Me.Label5.Text = "Effetti"
+		'
+		'chkBlur
+		'
+		Me.chkBlur.AutoSize = True
+		Me.chkBlur.Font = New System.Drawing.Font("Arial Narrow", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+		Me.chkBlur.Location = New System.Drawing.Point(396, 20)
+		Me.chkBlur.Name = "chkBlur"
+		Me.chkBlur.Size = New System.Drawing.Size(46, 20)
+		Me.chkBlur.TabIndex = 21
+		Me.chkBlur.Text = "Blur"
+		Me.chkBlur.UseVisualStyleBackColor = True
+		'
 		'frmMain
 		'
 		Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
 		Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-		Me.ClientSize = New System.Drawing.Size(552, 336)
+		Me.ClientSize = New System.Drawing.Size(552, 410)
 		Me.ControlBox = False
+		Me.Controls.Add(Me.Panel5)
 		Me.Controls.Add(Me.PictureBox1)
 		Me.Controls.Add(Me.cmdDelete)
 		Me.Controls.Add(Me.cmdChiude)
@@ -423,6 +575,8 @@ Partial Class frmMain
 		Me.Panel3.PerformLayout()
 		Me.Panel4.ResumeLayout(False)
 		CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
+		Me.Panel5.ResumeLayout(False)
+		Me.Panel5.PerformLayout()
 		Me.ResumeLayout(False)
 
 	End Sub
@@ -459,4 +613,16 @@ Partial Class frmMain
     Friend WithEvents chkCornice As System.Windows.Forms.CheckBox
     Friend WithEvents cmdDelete As System.Windows.Forms.Button
 	Friend WithEvents PictureBox1 As PictureBox
+	Friend WithEvents Panel5 As Panel
+	Friend WithEvents chkSfondo As CheckBox
+	Friend WithEvents chkNomeImm As CheckBox
+	Friend WithEvents chkPixelate As CheckBox
+	Friend WithEvents chkSeppia As CheckBox
+	Friend WithEvents chkBN As CheckBox
+	Friend WithEvents Label5 As Label
+	Friend WithEvents chkRotazione As CheckBox
+	Friend WithEvents chkPin As CheckBox
+	Friend WithEvents chkOmbra As CheckBox
+	Friend WithEvents chkOggetti As CheckBox
+	Friend WithEvents chkBlur As CheckBox
 End Class
