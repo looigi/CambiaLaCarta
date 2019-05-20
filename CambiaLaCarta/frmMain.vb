@@ -17,6 +17,7 @@ Public Class frmMain
 	Friend WithEvents menuItem3 As System.Windows.Forms.MenuItem = New System.Windows.Forms.MenuItem
 
 	Private quanteImmSfondo As Integer = 0
+	Private numPins As Integer = 0
 
 	'Private Sub frmMain_FormClosing(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosingEventArgs) Handles Me.FormClosing
 	'    'e.Cancel = True
@@ -89,6 +90,14 @@ Public Class frmMain
 		For i As Integer = 1 To gf.RitornaQuantiFilesRilevati
 			If filettis(i).ToUpper.Contains(".JPG") And Not filettis(i).ToUpper.Contains("RIDOTTI") Then
 				quanteImmSfondo += 1
+			End If
+		Next
+		gf.ScansionaDirectorySingola(Application.StartupPath & "\Images\Pins")
+		numPins = 0
+		filettis = gf.RitornaFilesRilevati
+		For i As Integer = 1 To gf.RitornaQuantiFilesRilevati
+			If filettis(i).ToUpper.Contains(".PNG") Then
+				numPins += 1
 			End If
 		Next
 		gf = Nothing
@@ -405,8 +414,8 @@ Public Class frmMain
 		End If
 		Dim TitoloScritta2 As String = "Path: " & gf.TornaNomeDirectoryDaPath(NomeOriginale.Replace(Percorso & "\", ""))
 		Dim TitoloScritta3 As String = "Dimensioni: " & vDime & " - Data: " & TornaDataImmagine(NomeImmagine(NumeroImmagineVisualizzata))
-		If TitoloScritta1.Length > 38 Then
-			TitoloScritta1 = Mid(TitoloScritta1, 1, 18) & "..." & Mid(TitoloScritta1, TitoloScritta1.Length - 18, 18)
+		If TitoloScritta1.Length > 34 Then
+			TitoloScritta1 = Mid(TitoloScritta1, 1, 16) & "..." & Mid(TitoloScritta1, TitoloScritta1.Length - 16, 16)
 		End If
 		If TitoloScritta2.Length > 56 Then
 			TitoloScritta2 = Mid(TitoloScritta2, 1, 26) & "..." & Mid(TitoloScritta2, TitoloScritta2.Length - 26, 26)
@@ -437,7 +446,7 @@ Public Class frmMain
 		End If
 		titBitmap.MakeTransparent(Color.Black)
 		titBitmap.Save(Application.StartupPath & "\Images\Appoggio\AppoggioTit.png", ImageFormat.Png)
-		gi.Ridimensiona(Application.StartupPath & "\Images\Appoggio\AppoggioTit.png", Application.StartupPath & "\Images\Appoggio\AppoggioTit.png", dimeX * 0.55, 150, ImageFormat.Png)
+		gi.Ridimensiona(Application.StartupPath & "\Images\Appoggio\AppoggioTit.png", Application.StartupPath & "\Images\Appoggio\AppoggioTit.png", dimeX * 0.35, 150, ImageFormat.Png)
 
 		Dim yy As Random = New Random
 		Randomize()
@@ -458,33 +467,102 @@ Public Class frmMain
 
 		Dim b As Bitmap = gi.LoadBitmapSenzaLock(Immaginella)
 		If chkPin.Checked = True Then
+			'x = 3
 			If x / 3 = Int(x / 3) Then
 				Using GraphicsObject As Graphics = Graphics.FromImage(b)
 					Randomize()
-					x = xx.Next(1, 2)
-					If x = 1 Then
-						' Pins
-						Dim Pin1 As String = Application.StartupPath & "\Images\Pins\4.png"
+					x = xx.Next(1, 3)
+					'x = 3
+					Select Case x
+						Case 1
+							' 4 Pins
+							Dim bmpOmbraPin As New Bitmap(70, 20)
+							Dim flagGraphics As Graphics = Graphics.FromImage(bmpOmbraPin)
+							Dim rect As New Rectangle(0, 0, bmpOmbraPin.Width, 20)
+							flagGraphics.FillEllipse(New SolidBrush(Color.FromArgb(185, 40, 40, 40)), rect)
 
-						Dim bmpPins As Bitmap = gi.LoadBitmapSenzaLock(Pin1)
-						GraphicsObject.DrawImage(bmpPins, 20, 20)
+							Randomize()
+							x = xx.Next(1, numPins)
+							Dim Pin1 As String = Application.StartupPath & "\Images\Pins\" & x.ToString.Trim & ".png"
 
-						bmpPins = gi.LoadBitmapSenzaLock(Pin1)
-						GraphicsObject.DrawImage(bmpPins, b.Width - bmpPins.Width, 20)
+							Dim bmpPins As Bitmap = gi.LoadBitmapSenzaLock(Pin1)
+							Dim wh As Integer = 20
+							Dim hh As Integer = 20 + (bmpPins.Height - 5)
+							If x <> 4 Then
+								GraphicsObject.DrawImage(bmpOmbraPin, wh, hh)
+							End If
+							GraphicsObject.DrawImage(bmpPins, 20, 20)
 
-						bmpPins = gi.LoadBitmapSenzaLock(Pin1)
-						GraphicsObject.DrawImage(bmpPins, 0, b.Height - bmpPins.Height)
+							Randomize()
+							x = xx.Next(1, numPins)
+							Pin1 = Application.StartupPath & "\Images\Pins\" & x.ToString.Trim & ".png"
+							bmpPins = gi.LoadBitmapSenzaLock(Pin1)
+							If x <> 4 Then
+								wh = b.Width - bmpPins.Width - 20
+								GraphicsObject.DrawImage(bmpOmbraPin, wh, hh)
+							End If
+							GraphicsObject.DrawImage(bmpPins, b.Width - bmpPins.Width - 20, 20)
 
-						bmpPins = gi.LoadBitmapSenzaLock(Pin1)
-						GraphicsObject.DrawImage(bmpPins, b.Width - bmpPins.Width, b.Height - bmpPins.Height)
-						' Pins
-					Else
-						' Graffetta
-						Dim Graffetta As String = Application.StartupPath & "\Images\Dettagli\Graffetta.png"
-						Dim bmpGraffetta As Bitmap = gi.LoadBitmapSenzaLock(Graffetta)
-						GraphicsObject.DrawImage(bmpGraffetta, 30, -5)
-						' Graffetta
-					End If
+							Randomize()
+							x = xx.Next(1, numPins)
+							Pin1 = Application.StartupPath & "\Images\Pins\" & x.ToString.Trim & ".png"
+							bmpPins = gi.LoadBitmapSenzaLock(Pin1)
+							If x <> 4 Then
+								wh = 20
+								hh = b.Height - 25
+								GraphicsObject.DrawImage(bmpOmbraPin, wh, hh)
+							End If
+							GraphicsObject.DrawImage(bmpPins, 20, b.Height - bmpPins.Height - 20)
+
+							Randomize()
+							x = xx.Next(1, numPins)
+							Pin1 = Application.StartupPath & "\Images\Pins\" & x.ToString.Trim & ".png"
+							bmpPins = gi.LoadBitmapSenzaLock(Pin1)
+							If x <> 4 Then
+								wh = b.Width - bmpPins.Width - 20
+								hh = b.Height - 25
+								GraphicsObject.DrawImage(bmpOmbraPin, wh, hh)
+							End If
+							GraphicsObject.DrawImage(bmpPins, b.Width - bmpPins.Width - 20, b.Height - bmpPins.Height - 20)
+							' 4 Pins
+						Case 2
+							' Graffetta
+							Dim Graffetta As String = Application.StartupPath & "\Images\Dettagli\Graffetta.png"
+							Dim bmpGraffetta As Bitmap = gi.LoadBitmapSenzaLock(Graffetta)
+							GraphicsObject.DrawImage(bmpGraffetta, 30, -5)
+							' Graffetta
+						Case 3
+							' Pin singolo
+							Randomize()
+							Dim xy = xx.Next(1, numPins)
+							Dim Pin1 As String = Application.StartupPath & "\Images\Pins\" & xy.ToString.Trim & ".png"
+
+							Dim bmpPins As Bitmap = gi.LoadBitmapSenzaLock(Pin1)
+							Dim w As Integer = (b.Width / 2) - (bmpPins.Width / 2)
+							Randomize()
+							x = xx.Next(1, 16)
+							If x > 8 Then
+								x = 8 - x
+							End If
+							w += x
+							Randomize()
+							x = xx.Next(1, 8)
+							If x > 4 Then
+								x = 4 - x
+							End If
+
+							If xy <> 4 Then
+								Dim bmpOmbraPin As New Bitmap(70, 20)
+								Dim flagGraphics As Graphics = Graphics.FromImage(bmpOmbraPin)
+								Dim rect As New Rectangle(0, 0, bmpOmbraPin.Width, 20)
+								flagGraphics.FillEllipse(New SolidBrush(Color.FromArgb(185, 40, 40, 40)), rect)
+
+								GraphicsObject.DrawImage(bmpOmbraPin, w, x + bmpPins.Height - 10)
+							End If
+
+							GraphicsObject.DrawImage(bmpPins, w, x + 3)
+							' Pin singolo
+					End Select
 				End Using
 				File.Delete(Immaginella)
 				b.Save(Immaginella)
@@ -605,12 +683,12 @@ Public Class frmMain
 
 				Dim flagGraphics As Graphics = Graphics.FromImage(bmpOmbra)
 				Dim rect As New Rectangle(0, 0, bmpOmbra.Width, bmpOmbra.Height)
-				flagGraphics.FillRectangle(New SolidBrush(Color.FromArgb(100, 20, 20, 20)), rect)
+				flagGraphics.FillRectangle(New SolidBrush(Color.FromArgb(175, 20, 20, 20)), rect)
 				If chkOmbra.Checked Then
 					bmpOmbra = gi.RuotaImmagineSenzaSalvare(bmpOmbra, rotazioneImm)
 				End If
 
-				GraphicsObject.DrawImage(bmpOmbra, px + 15, py + 15)
+				GraphicsObject.DrawImage(bmpOmbra, px + 12, py + 12)
 			End If
 
 			GraphicsObject.DrawImage(bmp, px, py)
@@ -620,7 +698,7 @@ Public Class frmMain
 				y = yy.Next(1, 3)
 				If y = 2 Then
 					Randomize()
-					y = yy.Next(1, 10)
+					y = yy.Next(1, 12)
 					Dim bmpOggetto As Bitmap
 					Select Case y
 						Case 1, 2, 3, 4
@@ -640,6 +718,15 @@ Public Class frmMain
 							bmpOggetto = gi.LoadBitmapSenzaLock(sOggetto)
 							py = 0
 							y = yy.Next(-50, screenHeight + 50)
+							py -= y
+						Case 11, 12
+							Dim sOggetto As String = Application.StartupPath & "\Images\Dettagli\squadretta.png"
+							bmpOggetto = gi.LoadBitmapSenzaLock(sOggetto)
+							y = yy.Next(1, 20)
+							If y > 10 Then y = 10 - y
+							bmpOggetto = gi.RuotaImmagineSenzaSalvare(bmpOggetto, y)
+							py = 0
+							y = yy.Next(10, screenHeight - bmpOggetto.Height - 10)
 							py -= y
 					End Select
 					dd = screenWidth - bmpOggetto.Width

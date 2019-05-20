@@ -435,6 +435,40 @@ Public Class GestioneImmagini
 		End Try
 	End Sub
 
+	Public Function RidimensionainMemoria(bmp As Bitmap, Larghezza As Integer, Altezza As Integer, Optional Format As ImageFormat = Nothing) As Bitmap
+		Try
+			Dim myEncoder As System.Drawing.Imaging.Encoder
+			Dim myEncoderParameters As New Imaging.EncoderParameters(1)
+			Dim img2 As Bitmap
+			Dim ImmaginePiccola22 As Image
+			Dim jgpEncoder2 As Imaging.ImageCodecInfo
+			Dim myEncoder2 As System.Drawing.Imaging.Encoder
+			Dim myEncoderParameters2 As New Imaging.EncoderParameters(1)
+
+			img2 = New Bitmap(bmp)
+			ImmaginePiccola22 = New Bitmap(img2, Val(Larghezza), Val(Altezza))
+			img2.Dispose()
+			img2 = Nothing
+
+			myEncoder = System.Drawing.Imaging.Encoder.Quality
+			If Format Is Nothing Then
+				jgpEncoder2 = GetEncoder(Imaging.ImageFormat.Jpeg)
+			Else
+				jgpEncoder2 = GetEncoder(Format)
+			End If
+			myEncoder2 = System.Drawing.Imaging.Encoder.Quality
+			Dim myEncoderParameter2 As New Imaging.EncoderParameter(myEncoder, 97)
+			myEncoderParameters2.Param(0) = myEncoderParameter2
+
+			jgpEncoder2 = Nothing
+			myEncoderParameter2 = Nothing
+
+			Return ImmaginePiccola22
+		Catch ex As Exception
+			Return Nothing
+		End Try
+	End Function
+
 	Private Function Converte(ByVal inputImage As Image) As Image
 		Dim outputBitmap As Bitmap = New Bitmap(inputImage.Width, inputImage.Height)
 		Dim X As Long
