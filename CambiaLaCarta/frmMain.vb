@@ -89,9 +89,14 @@ Public Class frmMain
 		Dim filettis() As String = gf.RitornaFilesRilevati
 		For i As Integer = 1 To gf.RitornaQuantiFilesRilevati
 			If filettis(i).ToUpper.Contains(".JPG") And Not filettis(i).ToUpper.Contains("RIDOTTI") Then
-				quanteImmSfondo += 1
+				Dim nome As String = gf.TornaNomeFileDaPath(filettis(i))
+				nome = nome.Replace(gf.TornaEstensioneFileDaPath(nome), "")
+				If quanteImmSfondo < Val(nome) Then
+					quanteImmSfondo = Val(nome)
+				End If
 			End If
 		Next
+		' MsgBox(quanteImmSfondo)
 		gf.ScansionaDirectorySingola(Application.StartupPath & "\Images\Pins")
 		numPins = 0
 		filettis = gf.RitornaFilesRilevati
