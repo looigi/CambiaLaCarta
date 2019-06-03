@@ -453,7 +453,7 @@ Public Class frmMain
 		titBitmap.Save(Application.StartupPath & "\Images\Appoggio\AppoggioTit.png", ImageFormat.Png)
 		gi.Ridimensiona(Application.StartupPath & "\Images\Appoggio\AppoggioTit.png", Application.StartupPath & "\Images\Appoggio\AppoggioTit.png", dimeX * 0.35, 150, ImageFormat.Png)
 
-		Dim yy As Random = New Random
+		Static yy As Random = New Random
 		Randomize()
 		Dim y As Integer = yy.Next(0, 14)
 		If y > 7 Then
@@ -466,7 +466,7 @@ Public Class frmMain
 		' Titolo
 
 		Randomize()
-		Dim xx As Random = New Random()
+		Static xx As Random = New Random()
 		Randomize()
 		Dim x As Integer = xx.Next(1, 30)
 
@@ -639,7 +639,7 @@ Public Class frmMain
 				'	gi.ConverteInHighPass2(Immaginella)
 		End Select
 
-		Dim xxx As New Random
+		Static xxx As New Random()
 		Dim xxxx As Integer = xxx.Next(1, quanteImmSfondo)
 		'If xxxx <= quanteImmSfondo Then
 		Dim Sfondo As String = Application.StartupPath & "\Images\Sfondi\" & xxxx & ".jpg"
