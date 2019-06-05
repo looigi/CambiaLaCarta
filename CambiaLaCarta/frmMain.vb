@@ -651,7 +651,7 @@ Public Class frmMain
 			Static xxx As New Random()
 			Dim xxxx As Integer = xxx.Next(1, quanteImmSfondo)
 
-			xxxx = 35
+			'xxxx = 35
 
 			Sfondo = Application.StartupPath & "\Images\Sfondi\" & xxxx & ".jpg"
 			SfondoRid = Application.StartupPath & "\Images\Sfondi\Ridotti\" & System.Net.Dns.GetHostName & "_" & xxxx & ".png"
@@ -663,6 +663,8 @@ Public Class frmMain
 				Else
 					Ancora = False
 				End If
+			Else
+				Ancora = False
 			End If
 		Loop
 
@@ -710,7 +712,7 @@ Public Class frmMain
 					bmpOmbra = gi.RuotaImmagineSenzaSalvare(bmpOmbra, rotazioneImm)
 				End If
 
-				GraphicsObject.DrawImage(bmpOmbra, px + 12, py + 12)
+				GraphicsObject.DrawImage(bmpOmbra, px + 22, py + 22)
 			End If
 
 			GraphicsObject.DrawImage(bmp, px, py)
