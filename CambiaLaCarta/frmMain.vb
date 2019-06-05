@@ -278,7 +278,8 @@ Public Class frmMain
 					Try
 						Dim Campi1 As String = ws.TornaNumeroImmaginePerSfondo()
 						Dim Campi() As String = Campi1.Split(";")
-						NumeroImmagineVisualizzata = Val(Campi(0))
+						' MsgBox(Campi1)
+						NumeroImmagineVisualizzata = Val(Campi(0)) + 1
 					Catch ex As Exception
 						Dim Vecchia As Integer = NumeroImmagineVisualizzata
 
