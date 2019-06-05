@@ -1,0 +1,585 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://looVF.org/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://looVF.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://looVF.org/">
+      <s:element name="RitornaSuccessivoMultimedia">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="idTipologia" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Categoria" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RitornaSuccessivoMultimediaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="RitornaSuccessivoMultimediaResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RitornaCategorie">
+        <s:complexType />
+      </s:element>
+      <s:element name="RitornaCategorieResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="RitornaCategorieResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RitornaQuantiFiles">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="idTipologia" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RitornaQuantiFilesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="RitornaQuantiFilesResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RitornaMultimediaDaId">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Tipologia" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="idMultimedia" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RitornaMultimediaDaIdResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="RitornaMultimediaDaIdResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RitornaImmaginiPerGriglia">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="QuanteImm" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Categoria" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RitornaImmaginiPerGrigliaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="RitornaImmaginiPerGrigliaResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RitornaFiles">
+        <s:complexType />
+      </s:element>
+      <s:element name="RitornaFilesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="RitornaFilesResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="TornaNumeroImmaginePerSfondo">
+        <s:complexType />
+      </s:element>
+      <s:element name="TornaNumeroImmaginePerSfondoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="TornaNumeroImmaginePerSfondoResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="string" nillable="true" type="s:string" />
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="RitornaSuccessivoMultimediaSoapIn">
+    <wsdl:part name="parameters" element="tns:RitornaSuccessivoMultimedia" />
+  </wsdl:message>
+  <wsdl:message name="RitornaSuccessivoMultimediaSoapOut">
+    <wsdl:part name="parameters" element="tns:RitornaSuccessivoMultimediaResponse" />
+  </wsdl:message>
+  <wsdl:message name="RitornaCategorieSoapIn">
+    <wsdl:part name="parameters" element="tns:RitornaCategorie" />
+  </wsdl:message>
+  <wsdl:message name="RitornaCategorieSoapOut">
+    <wsdl:part name="parameters" element="tns:RitornaCategorieResponse" />
+  </wsdl:message>
+  <wsdl:message name="RitornaQuantiFilesSoapIn">
+    <wsdl:part name="parameters" element="tns:RitornaQuantiFiles" />
+  </wsdl:message>
+  <wsdl:message name="RitornaQuantiFilesSoapOut">
+    <wsdl:part name="parameters" element="tns:RitornaQuantiFilesResponse" />
+  </wsdl:message>
+  <wsdl:message name="RitornaMultimediaDaIdSoapIn">
+    <wsdl:part name="parameters" element="tns:RitornaMultimediaDaId" />
+  </wsdl:message>
+  <wsdl:message name="RitornaMultimediaDaIdSoapOut">
+    <wsdl:part name="parameters" element="tns:RitornaMultimediaDaIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="RitornaImmaginiPerGrigliaSoapIn">
+    <wsdl:part name="parameters" element="tns:RitornaImmaginiPerGriglia" />
+  </wsdl:message>
+  <wsdl:message name="RitornaImmaginiPerGrigliaSoapOut">
+    <wsdl:part name="parameters" element="tns:RitornaImmaginiPerGrigliaResponse" />
+  </wsdl:message>
+  <wsdl:message name="RitornaFilesSoapIn">
+    <wsdl:part name="parameters" element="tns:RitornaFiles" />
+  </wsdl:message>
+  <wsdl:message name="RitornaFilesSoapOut">
+    <wsdl:part name="parameters" element="tns:RitornaFilesResponse" />
+  </wsdl:message>
+  <wsdl:message name="TornaNumeroImmaginePerSfondoSoapIn">
+    <wsdl:part name="parameters" element="tns:TornaNumeroImmaginePerSfondo" />
+  </wsdl:message>
+  <wsdl:message name="TornaNumeroImmaginePerSfondoSoapOut">
+    <wsdl:part name="parameters" element="tns:TornaNumeroImmaginePerSfondoResponse" />
+  </wsdl:message>
+  <wsdl:message name="RitornaSuccessivoMultimediaHttpGetIn">
+    <wsdl:part name="idTipologia" type="s:string" />
+    <wsdl:part name="Categoria" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="RitornaSuccessivoMultimediaHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="RitornaCategorieHttpGetIn" />
+  <wsdl:message name="RitornaCategorieHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="RitornaQuantiFilesHttpGetIn">
+    <wsdl:part name="idTipologia" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="RitornaQuantiFilesHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="RitornaMultimediaDaIdHttpGetIn">
+    <wsdl:part name="Tipologia" type="s:string" />
+    <wsdl:part name="idMultimedia" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="RitornaMultimediaDaIdHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="RitornaImmaginiPerGrigliaHttpGetIn">
+    <wsdl:part name="QuanteImm" type="s:string" />
+    <wsdl:part name="Categoria" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="RitornaImmaginiPerGrigliaHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="RitornaFilesHttpGetIn" />
+  <wsdl:message name="RitornaFilesHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="TornaNumeroImmaginePerSfondoHttpGetIn" />
+  <wsdl:message name="TornaNumeroImmaginePerSfondoHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="RitornaSuccessivoMultimediaHttpPostIn">
+    <wsdl:part name="idTipologia" type="s:string" />
+    <wsdl:part name="Categoria" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="RitornaSuccessivoMultimediaHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="RitornaCategorieHttpPostIn" />
+  <wsdl:message name="RitornaCategorieHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="RitornaQuantiFilesHttpPostIn">
+    <wsdl:part name="idTipologia" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="RitornaQuantiFilesHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="RitornaMultimediaDaIdHttpPostIn">
+    <wsdl:part name="Tipologia" type="s:string" />
+    <wsdl:part name="idMultimedia" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="RitornaMultimediaDaIdHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="RitornaImmaginiPerGrigliaHttpPostIn">
+    <wsdl:part name="QuanteImm" type="s:string" />
+    <wsdl:part name="Categoria" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="RitornaImmaginiPerGrigliaHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="RitornaFilesHttpPostIn" />
+  <wsdl:message name="RitornaFilesHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="TornaNumeroImmaginePerSfondoHttpPostIn" />
+  <wsdl:message name="TornaNumeroImmaginePerSfondoHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:portType name="looVFSoap">
+    <wsdl:operation name="RitornaSuccessivoMultimedia">
+      <wsdl:input message="tns:RitornaSuccessivoMultimediaSoapIn" />
+      <wsdl:output message="tns:RitornaSuccessivoMultimediaSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RitornaCategorie">
+      <wsdl:input message="tns:RitornaCategorieSoapIn" />
+      <wsdl:output message="tns:RitornaCategorieSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RitornaQuantiFiles">
+      <wsdl:input message="tns:RitornaQuantiFilesSoapIn" />
+      <wsdl:output message="tns:RitornaQuantiFilesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RitornaMultimediaDaId">
+      <wsdl:input message="tns:RitornaMultimediaDaIdSoapIn" />
+      <wsdl:output message="tns:RitornaMultimediaDaIdSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RitornaImmaginiPerGriglia">
+      <wsdl:input message="tns:RitornaImmaginiPerGrigliaSoapIn" />
+      <wsdl:output message="tns:RitornaImmaginiPerGrigliaSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RitornaFiles">
+      <wsdl:input message="tns:RitornaFilesSoapIn" />
+      <wsdl:output message="tns:RitornaFilesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="TornaNumeroImmaginePerSfondo">
+      <wsdl:input message="tns:TornaNumeroImmaginePerSfondoSoapIn" />
+      <wsdl:output message="tns:TornaNumeroImmaginePerSfondoSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="looVFHttpGet">
+    <wsdl:operation name="RitornaSuccessivoMultimedia">
+      <wsdl:input message="tns:RitornaSuccessivoMultimediaHttpGetIn" />
+      <wsdl:output message="tns:RitornaSuccessivoMultimediaHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RitornaCategorie">
+      <wsdl:input message="tns:RitornaCategorieHttpGetIn" />
+      <wsdl:output message="tns:RitornaCategorieHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RitornaQuantiFiles">
+      <wsdl:input message="tns:RitornaQuantiFilesHttpGetIn" />
+      <wsdl:output message="tns:RitornaQuantiFilesHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RitornaMultimediaDaId">
+      <wsdl:input message="tns:RitornaMultimediaDaIdHttpGetIn" />
+      <wsdl:output message="tns:RitornaMultimediaDaIdHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RitornaImmaginiPerGriglia">
+      <wsdl:input message="tns:RitornaImmaginiPerGrigliaHttpGetIn" />
+      <wsdl:output message="tns:RitornaImmaginiPerGrigliaHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RitornaFiles">
+      <wsdl:input message="tns:RitornaFilesHttpGetIn" />
+      <wsdl:output message="tns:RitornaFilesHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="TornaNumeroImmaginePerSfondo">
+      <wsdl:input message="tns:TornaNumeroImmaginePerSfondoHttpGetIn" />
+      <wsdl:output message="tns:TornaNumeroImmaginePerSfondoHttpGetOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="looVFHttpPost">
+    <wsdl:operation name="RitornaSuccessivoMultimedia">
+      <wsdl:input message="tns:RitornaSuccessivoMultimediaHttpPostIn" />
+      <wsdl:output message="tns:RitornaSuccessivoMultimediaHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RitornaCategorie">
+      <wsdl:input message="tns:RitornaCategorieHttpPostIn" />
+      <wsdl:output message="tns:RitornaCategorieHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RitornaQuantiFiles">
+      <wsdl:input message="tns:RitornaQuantiFilesHttpPostIn" />
+      <wsdl:output message="tns:RitornaQuantiFilesHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RitornaMultimediaDaId">
+      <wsdl:input message="tns:RitornaMultimediaDaIdHttpPostIn" />
+      <wsdl:output message="tns:RitornaMultimediaDaIdHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RitornaImmaginiPerGriglia">
+      <wsdl:input message="tns:RitornaImmaginiPerGrigliaHttpPostIn" />
+      <wsdl:output message="tns:RitornaImmaginiPerGrigliaHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RitornaFiles">
+      <wsdl:input message="tns:RitornaFilesHttpPostIn" />
+      <wsdl:output message="tns:RitornaFilesHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="TornaNumeroImmaginePerSfondo">
+      <wsdl:input message="tns:TornaNumeroImmaginePerSfondoHttpPostIn" />
+      <wsdl:output message="tns:TornaNumeroImmaginePerSfondoHttpPostOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="looVFSoap" type="tns:looVFSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="RitornaSuccessivoMultimedia">
+      <soap:operation soapAction="http://looVF.org/RitornaSuccessivoMultimedia" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RitornaCategorie">
+      <soap:operation soapAction="http://looVF.org/RitornaCategorie" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RitornaQuantiFiles">
+      <soap:operation soapAction="http://looVF.org/RitornaQuantiFiles" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RitornaMultimediaDaId">
+      <soap:operation soapAction="http://looVF.org/RitornaMultimediaDaId" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RitornaImmaginiPerGriglia">
+      <soap:operation soapAction="http://looVF.org/RitornaImmaginiPerGriglia" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RitornaFiles">
+      <soap:operation soapAction="http://looVF.org/RitornaFiles" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="TornaNumeroImmaginePerSfondo">
+      <soap:operation soapAction="http://looVF.org/TornaNumeroImmaginePerSfondo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="looVFSoap12" type="tns:looVFSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="RitornaSuccessivoMultimedia">
+      <soap12:operation soapAction="http://looVF.org/RitornaSuccessivoMultimedia" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RitornaCategorie">
+      <soap12:operation soapAction="http://looVF.org/RitornaCategorie" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RitornaQuantiFiles">
+      <soap12:operation soapAction="http://looVF.org/RitornaQuantiFiles" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RitornaMultimediaDaId">
+      <soap12:operation soapAction="http://looVF.org/RitornaMultimediaDaId" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RitornaImmaginiPerGriglia">
+      <soap12:operation soapAction="http://looVF.org/RitornaImmaginiPerGriglia" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RitornaFiles">
+      <soap12:operation soapAction="http://looVF.org/RitornaFiles" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="TornaNumeroImmaginePerSfondo">
+      <soap12:operation soapAction="http://looVF.org/TornaNumeroImmaginePerSfondo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="looVFHttpGet" type="tns:looVFHttpGet">
+    <http:binding verb="GET" />
+    <wsdl:operation name="RitornaSuccessivoMultimedia">
+      <http:operation location="/RitornaSuccessivoMultimedia" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RitornaCategorie">
+      <http:operation location="/RitornaCategorie" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RitornaQuantiFiles">
+      <http:operation location="/RitornaQuantiFiles" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RitornaMultimediaDaId">
+      <http:operation location="/RitornaMultimediaDaId" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RitornaImmaginiPerGriglia">
+      <http:operation location="/RitornaImmaginiPerGriglia" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RitornaFiles">
+      <http:operation location="/RitornaFiles" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="TornaNumeroImmaginePerSfondo">
+      <http:operation location="/TornaNumeroImmaginePerSfondo" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="looVFHttpPost" type="tns:looVFHttpPost">
+    <http:binding verb="POST" />
+    <wsdl:operation name="RitornaSuccessivoMultimedia">
+      <http:operation location="/RitornaSuccessivoMultimedia" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RitornaCategorie">
+      <http:operation location="/RitornaCategorie" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RitornaQuantiFiles">
+      <http:operation location="/RitornaQuantiFiles" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RitornaMultimediaDaId">
+      <http:operation location="/RitornaMultimediaDaId" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RitornaImmaginiPerGriglia">
+      <http:operation location="/RitornaImmaginiPerGriglia" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RitornaFiles">
+      <http:operation location="/RitornaFiles" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="TornaNumeroImmaginePerSfondo">
+      <http:operation location="/TornaNumeroImmaginePerSfondo" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="looVF">
+    <wsdl:port name="looVFSoap" binding="tns:looVFSoap">
+      <soap:address location="http://looigi.no-ip.biz:12345/looVF/looVF.asmx" />
+    </wsdl:port>
+    <wsdl:port name="looVFSoap12" binding="tns:looVFSoap12">
+      <soap12:address location="http://looigi.no-ip.biz:12345/looVF/looVF.asmx" />
+    </wsdl:port>
+    <wsdl:port name="looVFHttpGet" binding="tns:looVFHttpGet">
+      <http:address location="http://looigi.no-ip.biz:12345/looVF/looVF.asmx" />
+    </wsdl:port>
+    <wsdl:port name="looVFHttpPost" binding="tns:looVFHttpPost">
+      <http:address location="http://looigi.no-ip.biz:12345/looVF/looVF.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

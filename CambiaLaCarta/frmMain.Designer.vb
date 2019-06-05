@@ -57,6 +57,7 @@ Partial Class frmMain
 		Me.cmdDelete = New System.Windows.Forms.Button()
 		Me.PictureBox1 = New System.Windows.Forms.PictureBox()
 		Me.Panel5 = New System.Windows.Forms.Panel()
+		Me.lblSfondi = New System.Windows.Forms.Label()
 		Me.chkBlur = New System.Windows.Forms.CheckBox()
 		Me.chkOggetti = New System.Windows.Forms.CheckBox()
 		Me.chkOmbra = New System.Windows.Forms.CheckBox()
@@ -68,7 +69,6 @@ Partial Class frmMain
 		Me.chkSeppia = New System.Windows.Forms.CheckBox()
 		Me.chkBN = New System.Windows.Forms.CheckBox()
 		Me.Label5 = New System.Windows.Forms.Label()
-		Me.lblSfondi = New System.Windows.Forms.Label()
 		CType(Me.picImmagine, System.ComponentModel.ISupportInitialize).BeginInit()
 		Me.Panel1.SuspendLayout()
 		Me.Panel2.SuspendLayout()
@@ -153,10 +153,10 @@ Partial Class frmMain
 		Me.optOra.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
 		Me.optOra.Location = New System.Drawing.Point(6, 72)
 		Me.optOra.Name = "optOra"
-		Me.optOra.Size = New System.Drawing.Size(66, 19)
+		Me.optOra.Size = New System.Drawing.Size(98, 19)
 		Me.optOra.TabIndex = 10
 		Me.optOra.TabStop = True
-		Me.optOra.Text = "Sull'ora"
+		Me.optOra.Text = "Synchronized"
 		Me.optOra.UseVisualStyleBackColor = True
 		'
 		'Label1
@@ -422,6 +422,16 @@ Partial Class frmMain
 		Me.Panel5.Size = New System.Drawing.Size(533, 66)
 		Me.Panel5.TabIndex = 23
 		'
+		'lblSfondi
+		'
+		Me.lblSfondi.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+		Me.lblSfondi.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(192, Byte), Integer))
+		Me.lblSfondi.Location = New System.Drawing.Point(396, 41)
+		Me.lblSfondi.Name = "lblSfondi"
+		Me.lblSfondi.Size = New System.Drawing.Size(131, 20)
+		Me.lblSfondi.TabIndex = 22
+		Me.lblSfondi.Text = "Label1"
+		'
 		'chkBlur
 		'
 		Me.chkBlur.AutoSize = True
@@ -540,16 +550,6 @@ Partial Class frmMain
 		Me.Label5.Size = New System.Drawing.Size(97, 17)
 		Me.Label5.TabIndex = 10
 		Me.Label5.Text = "Effetti"
-		'
-		'lblSfondi
-		'
-		Me.lblSfondi.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-		Me.lblSfondi.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(192, Byte), Integer))
-		Me.lblSfondi.Location = New System.Drawing.Point(396, 41)
-		Me.lblSfondi.Name = "lblSfondi"
-		Me.lblSfondi.Size = New System.Drawing.Size(131, 20)
-		Me.lblSfondi.TabIndex = 22
-		Me.lblSfondi.Text = "Label1"
 		'
 		'frmMain
 		'

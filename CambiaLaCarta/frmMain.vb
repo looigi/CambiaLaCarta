@@ -264,16 +264,29 @@ Public Class frmMain
 						NumeroImmagineVisualizzata = CInt(Int((QuanteImmagini * Rnd()))) + 1
 					Loop
 				Else
-					Dim Ora As Integer = Now.Hour
-					Dim Minuti As Integer = Now.Minute
-					Dim Secondi As Integer = Now.Second
+					'Dim Ora As Integer = Now.Hour
+					'Dim Minuti As Integer = Now.Minute
+					'Dim Secondi As Integer = Now.Second
 
-					Dim Tot As Integer = (Ora * 60 * 60) + (Minuti * 60) + Secondi
-					Tot = Int(Tot / Val(lblSecondi.Text)) * Val(lblSecondi.Text)
+					'Dim Tot As Integer = (Ora * 60 * 60) + (Minuti * 60) + Secondi
+					'Tot = Int(Tot / Val(lblSecondi.Text)) * Val(lblSecondi.Text)
 
-					Dim Resto As Integer = Tot Mod QuanteImmagini
+					'Dim Resto As Integer = Tot Mod QuanteImmagini
 
-					NumeroImmagineVisualizzata = Resto
+					'NumeroImmagineVisualizzata = Resto
+					Dim ws As New ServiceReference1.looVFSoapClient
+					Try
+						Dim Campi1 As String = ws.TornaNumeroImmaginePerSfondo()
+						Dim Campi() As String = Campi1.Split(";")
+						NumeroImmagineVisualizzata = Val(Campi(0))
+					Catch ex As Exception
+						Dim Vecchia As Integer = NumeroImmagineVisualizzata
+
+						Do While NumeroImmagineVisualizzata = Vecchia
+							Randomize()
+							NumeroImmagineVisualizzata = CInt(Int((QuanteImmagini * Rnd()))) + 1
+						Loop
+					End Try
 				End If
 			End If
 		Else
