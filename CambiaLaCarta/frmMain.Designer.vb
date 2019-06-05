@@ -57,6 +57,7 @@ Partial Class frmMain
 		Me.cmdDelete = New System.Windows.Forms.Button()
 		Me.PictureBox1 = New System.Windows.Forms.PictureBox()
 		Me.Panel5 = New System.Windows.Forms.Panel()
+		Me.chkBlur = New System.Windows.Forms.CheckBox()
 		Me.chkOggetti = New System.Windows.Forms.CheckBox()
 		Me.chkOmbra = New System.Windows.Forms.CheckBox()
 		Me.chkPin = New System.Windows.Forms.CheckBox()
@@ -67,7 +68,7 @@ Partial Class frmMain
 		Me.chkSeppia = New System.Windows.Forms.CheckBox()
 		Me.chkBN = New System.Windows.Forms.CheckBox()
 		Me.Label5 = New System.Windows.Forms.Label()
-		Me.chkBlur = New System.Windows.Forms.CheckBox()
+		Me.lblSfondi = New System.Windows.Forms.Label()
 		CType(Me.picImmagine, System.ComponentModel.ISupportInitialize).BeginInit()
 		Me.Panel1.SuspendLayout()
 		Me.Panel2.SuspendLayout()
@@ -403,6 +404,7 @@ Partial Class frmMain
 		'Panel5
 		'
 		Me.Panel5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+		Me.Panel5.Controls.Add(Me.lblSfondi)
 		Me.Panel5.Controls.Add(Me.chkBlur)
 		Me.Panel5.Controls.Add(Me.chkOggetti)
 		Me.Panel5.Controls.Add(Me.chkOmbra)
@@ -419,6 +421,17 @@ Partial Class frmMain
 		Me.Panel5.Name = "Panel5"
 		Me.Panel5.Size = New System.Drawing.Size(533, 66)
 		Me.Panel5.TabIndex = 23
+		'
+		'chkBlur
+		'
+		Me.chkBlur.AutoSize = True
+		Me.chkBlur.Font = New System.Drawing.Font("Arial Narrow", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+		Me.chkBlur.Location = New System.Drawing.Point(396, 20)
+		Me.chkBlur.Name = "chkBlur"
+		Me.chkBlur.Size = New System.Drawing.Size(46, 20)
+		Me.chkBlur.TabIndex = 21
+		Me.chkBlur.Text = "Blur"
+		Me.chkBlur.UseVisualStyleBackColor = True
 		'
 		'chkOggetti
 		'
@@ -528,16 +541,15 @@ Partial Class frmMain
 		Me.Label5.TabIndex = 10
 		Me.Label5.Text = "Effetti"
 		'
-		'chkBlur
+		'lblSfondi
 		'
-		Me.chkBlur.AutoSize = True
-		Me.chkBlur.Font = New System.Drawing.Font("Arial Narrow", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-		Me.chkBlur.Location = New System.Drawing.Point(396, 20)
-		Me.chkBlur.Name = "chkBlur"
-		Me.chkBlur.Size = New System.Drawing.Size(46, 20)
-		Me.chkBlur.TabIndex = 21
-		Me.chkBlur.Text = "Blur"
-		Me.chkBlur.UseVisualStyleBackColor = True
+		Me.lblSfondi.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+		Me.lblSfondi.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(192, Byte), Integer))
+		Me.lblSfondi.Location = New System.Drawing.Point(396, 41)
+		Me.lblSfondi.Name = "lblSfondi"
+		Me.lblSfondi.Size = New System.Drawing.Size(131, 20)
+		Me.lblSfondi.TabIndex = 22
+		Me.lblSfondi.Text = "Label1"
 		'
 		'frmMain
 		'
@@ -625,4 +637,5 @@ Partial Class frmMain
 	Friend WithEvents chkOmbra As CheckBox
 	Friend WithEvents chkOggetti As CheckBox
 	Friend WithEvents chkBlur As CheckBox
+	Friend WithEvents lblSfondi As Label
 End Class

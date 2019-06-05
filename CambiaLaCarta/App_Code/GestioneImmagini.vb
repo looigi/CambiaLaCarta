@@ -409,6 +409,7 @@ Public Class GestioneImmagini
 			Dim myEncoder2 As System.Drawing.Imaging.Encoder
 			Dim myEncoderParameters2 As New Imaging.EncoderParameters(1)
 
+			MsgBox(Path)
 			img2 = New Bitmap(Path)
 			ImmaginePiccola22 = New Bitmap(img2, Val(Larghezza), Val(Altezza))
 			img2.Dispose()
@@ -431,7 +432,6 @@ Public Class GestioneImmagini
 			jgpEncoder2 = Nothing
 			myEncoderParameter2 = Nothing
 		Catch ex As Exception
-
 		End Try
 	End Sub
 

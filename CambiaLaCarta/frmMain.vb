@@ -96,6 +96,8 @@ Public Class frmMain
 				End If
 			End If
 		Next
+		lblSfondi.Text = "Sfondi: " & quanteImmSfondo
+
 		' MsgBox(quanteImmSfondo)
 		gf.ScansionaDirectorySingola(Application.StartupPath & "\Images\Pins")
 		numPins = 0
@@ -639,16 +641,31 @@ Public Class frmMain
 				'	gi.ConverteInHighPass2(Immaginella)
 		End Select
 
-		Static xxx As New Random()
-		Dim xxxx As Integer = xxx.Next(1, quanteImmSfondo)
-		'If xxxx <= quanteImmSfondo Then
-		Dim Sfondo As String = Application.StartupPath & "\Images\Sfondi\" & xxxx & ".jpg"
-		Dim SfondoRid As String = Application.StartupPath & "\Images\Sfondi\Ridotti\" & System.Net.Dns.GetHostName & "_" & xxxx & ".png"
+		Dim Sfondo As String
+		Dim SfondoRid As String
+		Dim Ancora As Boolean = True
 		Dim screenWidth As Integer = Screen.PrimaryScreen.Bounds.Width
 		Dim screenHeight As Integer = Screen.PrimaryScreen.Bounds.Height
-		If Not File.Exists(SfondoRid) Then
-			gi.Ridimensiona(Sfondo, SfondoRid, screenWidth, screenHeight)
-		End If
+
+		Do While Ancora
+			Static xxx As New Random()
+			Dim xxxx As Integer = xxx.Next(1, quanteImmSfondo)
+
+			xxxx = 35
+
+			Sfondo = Application.StartupPath & "\Images\Sfondi\" & xxxx & ".jpg"
+			SfondoRid = Application.StartupPath & "\Images\Sfondi\Ridotti\" & System.Net.Dns.GetHostName & "_" & xxxx & ".png"
+
+			If Not File.Exists(SfondoRid) Then
+				gi.Ridimensiona(Sfondo, SfondoRid, screenWidth, screenHeight)
+				If Not File.Exists(SfondoRid) Then
+					Ancora = True
+				Else
+					Ancora = False
+				End If
+			End If
+		Loop
+
 		Dim bitmapSfondo As Bitmap
 		Dim bmp As Bitmap = gi.LoadBitmapSenzaLock(Immaginella)
 		If chkSfondo.Checked Then
