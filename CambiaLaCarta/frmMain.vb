@@ -264,6 +264,7 @@ Public Class frmMain
 						NumeroImmagineVisualizzata = CInt(Int((QuanteImmagini * Rnd()))) + 1
 					Loop
 				Else
+					Dim Vecchia As Integer = NumeroImmagineVisualizzata
 					'Dim Ora As Integer = Now.Hour
 					'Dim Minuti As Integer = Now.Minute
 					'Dim Secondi As Integer = Now.Second
@@ -275,15 +276,38 @@ Public Class frmMain
 
 					'NumeroImmagineVisualizzata = Resto
 					Dim ws As New ServiceReference1.looVFSoapClient
+
 					Try
 						Dim Campi1 As String = ws.TornaNumeroImmaginePerSfondo()
 						Dim Campi() As String = Campi1.Split(";")
 						' MsgBox(Campi1)
-						NumeroImmagineVisualizzata = Val(Campi(0)) + 1
-					Catch ex As Exception
-						Dim Vecchia As Integer = NumeroImmagineVisualizzata
+						Dim Imma As String = Campi(1).Replace("/", "\")
+						NumeroImmagineVisualizzata = -1
 
-						Do While NumeroImmagineVisualizzata = Vecchia
+						For i As Integer = 1 To QuanteImmagini
+							If NomeImmagine(i).Contains(Imma) Then
+								NumeroImmagineVisualizzata = i
+								Exit For
+							End If
+						Next
+						' NumeroImmagineVisualizzata = Val(Campi(0)) + 1
+
+						If Vecchia = NumeroImmagineVisualizzata Then
+							Exit Sub
+						End If
+
+						If NumeroImmagineVisualizzata = -1 Then
+							Dim Vecchia2 As Integer = NumeroImmagineVisualizzata
+
+							Do While NumeroImmagineVisualizzata = Vecchia2
+								Randomize()
+								NumeroImmagineVisualizzata = CInt(Int((QuanteImmagini * Rnd()))) + 1
+							Loop
+						End If
+					Catch ex As Exception
+						Dim Vecchia3 As Integer = NumeroImmagineVisualizzata
+
+						Do While NumeroImmagineVisualizzata = Vecchia3
 							Randomize()
 							NumeroImmagineVisualizzata = CInt(Int((QuanteImmagini * Rnd()))) + 1
 						Loop
