@@ -989,8 +989,8 @@ Public Class frmMain
 	End Sub
 
 	Private Sub cmdNasconde_Click(sender As Object, e As EventArgs) Handles cmdNasconde.Click
-		Me.Left = dimeX + 10
-		Me.Top = dimeY + 10
+		Me.Left = dimeX + 1000
+		Me.Top = dimeY + 1000
 
 		Me.TopMost = False
 	End Sub
