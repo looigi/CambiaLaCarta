@@ -109,7 +109,11 @@ Public Class frmMain
 		Next
 		gf = Nothing
 
+		Me.Left = dimeX + 1000
+		Me.Top = dimeY + 1000
+
 		Me.TopMost = False
+		Me.Hide()
 	End Sub
 
 	Private Function TornaDataImmagine(NomeFile As String) As Date
@@ -158,6 +162,7 @@ Public Class frmMain
 
 		Me.WindowState = FormWindowState.Normal
 		Me.TopMost = True
+		Me.Show()
 	End Sub
 
 	Private Sub menuItem3_Click(Sender As Object, e As EventArgs) Handles menuItem3.Click
@@ -993,6 +998,7 @@ Public Class frmMain
 		Me.Top = dimeY + 1000
 
 		Me.TopMost = False
+		Me.Hide()
 	End Sub
 
 	Private Sub cmdPausa_Click(sender As Object, e As EventArgs) Handles cmdPausa.Click
