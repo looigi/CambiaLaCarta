@@ -57,6 +57,12 @@ Partial Class frmMain
 		Me.cmdDelete = New System.Windows.Forms.Button()
 		Me.PictureBox1 = New System.Windows.Forms.PictureBox()
 		Me.Panel5 = New System.Windows.Forms.Panel()
+		Me.cmdPiuOmbraY = New System.Windows.Forms.Button()
+		Me.cmdMenoOmbraY = New System.Windows.Forms.Button()
+		Me.lblOmbraY = New System.Windows.Forms.Label()
+		Me.cmdPiuOmbraX = New System.Windows.Forms.Button()
+		Me.cmdMenoOmbraX = New System.Windows.Forms.Button()
+		Me.lblOmbraX = New System.Windows.Forms.Label()
 		Me.lblSfondi = New System.Windows.Forms.Label()
 		Me.chkBlur = New System.Windows.Forms.CheckBox()
 		Me.chkOggetti = New System.Windows.Forms.CheckBox()
@@ -404,6 +410,12 @@ Partial Class frmMain
 		'Panel5
 		'
 		Me.Panel5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+		Me.Panel5.Controls.Add(Me.cmdPiuOmbraY)
+		Me.Panel5.Controls.Add(Me.cmdMenoOmbraY)
+		Me.Panel5.Controls.Add(Me.lblOmbraY)
+		Me.Panel5.Controls.Add(Me.cmdPiuOmbraX)
+		Me.Panel5.Controls.Add(Me.cmdMenoOmbraX)
+		Me.Panel5.Controls.Add(Me.lblOmbraX)
 		Me.Panel5.Controls.Add(Me.lblSfondi)
 		Me.Panel5.Controls.Add(Me.chkBlur)
 		Me.Panel5.Controls.Add(Me.chkOggetti)
@@ -419,8 +431,64 @@ Partial Class frmMain
 		Me.Panel5.Controls.Add(Me.Label5)
 		Me.Panel5.Location = New System.Drawing.Point(12, 332)
 		Me.Panel5.Name = "Panel5"
-		Me.Panel5.Size = New System.Drawing.Size(533, 66)
+		Me.Panel5.Size = New System.Drawing.Size(533, 103)
 		Me.Panel5.TabIndex = 23
+		'
+		'cmdPiuOmbraY
+		'
+		Me.cmdPiuOmbraY.Location = New System.Drawing.Point(261, 64)
+		Me.cmdPiuOmbraY.Name = "cmdPiuOmbraY"
+		Me.cmdPiuOmbraY.Size = New System.Drawing.Size(26, 23)
+		Me.cmdPiuOmbraY.TabIndex = 28
+		Me.cmdPiuOmbraY.Text = "+"
+		Me.cmdPiuOmbraY.UseVisualStyleBackColor = True
+		'
+		'cmdMenoOmbraY
+		'
+		Me.cmdMenoOmbraY.Location = New System.Drawing.Point(186, 64)
+		Me.cmdMenoOmbraY.Name = "cmdMenoOmbraY"
+		Me.cmdMenoOmbraY.Size = New System.Drawing.Size(26, 23)
+		Me.cmdMenoOmbraY.TabIndex = 27
+		Me.cmdMenoOmbraY.Text = "-"
+		Me.cmdMenoOmbraY.UseVisualStyleBackColor = True
+		'
+		'lblOmbraY
+		'
+		Me.lblOmbraY.AutoSize = True
+		Me.lblOmbraY.Location = New System.Drawing.Point(216, 69)
+		Me.lblOmbraY.Name = "lblOmbraY"
+		Me.lblOmbraY.Size = New System.Drawing.Size(39, 13)
+		Me.lblOmbraY.TabIndex = 26
+		Me.lblOmbraY.Text = "Label6"
+		Me.lblOmbraY.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+		'
+		'cmdPiuOmbraX
+		'
+		Me.cmdPiuOmbraX.Location = New System.Drawing.Point(148, 64)
+		Me.cmdPiuOmbraX.Name = "cmdPiuOmbraX"
+		Me.cmdPiuOmbraX.Size = New System.Drawing.Size(26, 23)
+		Me.cmdPiuOmbraX.TabIndex = 25
+		Me.cmdPiuOmbraX.Text = "+"
+		Me.cmdPiuOmbraX.UseVisualStyleBackColor = True
+		'
+		'cmdMenoOmbraX
+		'
+		Me.cmdMenoOmbraX.Location = New System.Drawing.Point(73, 64)
+		Me.cmdMenoOmbraX.Name = "cmdMenoOmbraX"
+		Me.cmdMenoOmbraX.Size = New System.Drawing.Size(26, 23)
+		Me.cmdMenoOmbraX.TabIndex = 24
+		Me.cmdMenoOmbraX.Text = "-"
+		Me.cmdMenoOmbraX.UseVisualStyleBackColor = True
+		'
+		'lblOmbraX
+		'
+		Me.lblOmbraX.AutoSize = True
+		Me.lblOmbraX.Location = New System.Drawing.Point(103, 69)
+		Me.lblOmbraX.Name = "lblOmbraX"
+		Me.lblOmbraX.Size = New System.Drawing.Size(39, 13)
+		Me.lblOmbraX.TabIndex = 23
+		Me.lblOmbraX.Text = "Label6"
+		Me.lblOmbraX.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
 		'
 		'lblSfondi
 		'
@@ -447,7 +515,7 @@ Partial Class frmMain
 		'
 		Me.chkOggetti.AutoSize = True
 		Me.chkOggetti.Font = New System.Drawing.Font("Arial Narrow", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-		Me.chkOggetti.Location = New System.Drawing.Point(148, 41)
+		Me.chkOggetti.Location = New System.Drawing.Point(78, 41)
 		Me.chkOggetti.Name = "chkOggetti"
 		Me.chkOggetti.Size = New System.Drawing.Size(59, 20)
 		Me.chkOggetti.TabIndex = 20
@@ -458,7 +526,7 @@ Partial Class frmMain
 		'
 		Me.chkOmbra.AutoSize = True
 		Me.chkOmbra.Font = New System.Drawing.Font("Arial Narrow", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-		Me.chkOmbra.Location = New System.Drawing.Point(78, 41)
+		Me.chkOmbra.Location = New System.Drawing.Point(8, 67)
 		Me.chkOmbra.Name = "chkOmbra"
 		Me.chkOmbra.Size = New System.Drawing.Size(59, 20)
 		Me.chkOmbra.TabIndex = 19
@@ -480,7 +548,7 @@ Partial Class frmMain
 		'
 		Me.chkRotazione.AutoSize = True
 		Me.chkRotazione.Font = New System.Drawing.Font("Arial Narrow", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-		Me.chkRotazione.Location = New System.Drawing.Point(326, 41)
+		Me.chkRotazione.Location = New System.Drawing.Point(218, 41)
 		Me.chkRotazione.Name = "chkRotazione"
 		Me.chkRotazione.Size = New System.Drawing.Size(74, 20)
 		Me.chkRotazione.TabIndex = 17
@@ -491,7 +559,7 @@ Partial Class frmMain
 		'
 		Me.chkSfondo.AutoSize = True
 		Me.chkSfondo.Font = New System.Drawing.Font("Arial Narrow", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-		Me.chkSfondo.Location = New System.Drawing.Point(218, 41)
+		Me.chkSfondo.Location = New System.Drawing.Point(148, 41)
 		Me.chkSfondo.Name = "chkSfondo"
 		Me.chkSfondo.Size = New System.Drawing.Size(60, 20)
 		Me.chkSfondo.TabIndex = 16
@@ -555,7 +623,7 @@ Partial Class frmMain
 		'
 		Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
 		Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-		Me.ClientSize = New System.Drawing.Size(552, 410)
+		Me.ClientSize = New System.Drawing.Size(552, 447)
 		Me.ControlBox = False
 		Me.Controls.Add(Me.Panel5)
 		Me.Controls.Add(Me.PictureBox1)
@@ -638,4 +706,10 @@ Partial Class frmMain
 	Friend WithEvents chkOggetti As CheckBox
 	Friend WithEvents chkBlur As CheckBox
 	Friend WithEvents lblSfondi As Label
+	Friend WithEvents cmdPiuOmbraX As Button
+	Friend WithEvents cmdMenoOmbraX As Button
+	Friend WithEvents lblOmbraX As Label
+	Friend WithEvents cmdPiuOmbraY As Button
+	Friend WithEvents cmdMenoOmbraY As Button
+	Friend WithEvents lblOmbraY As Label
 End Class

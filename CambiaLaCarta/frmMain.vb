@@ -19,6 +19,9 @@ Public Class frmMain
 	Private quanteImmSfondo As Integer = 0
 	Private numPins As Integer = 0
 
+	Private spostamentoOmbraX As Integer = 22
+	Private spostamentoOmbraY As Integer = 22
+
 	'Private Sub frmMain_FormClosing(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosingEventArgs) Handles Me.FormClosing
 	'    'e.Cancel = True
 	'End Sub
@@ -37,6 +40,11 @@ Public Class frmMain
 		Visualizzazione = GetSetting("CambiaLaCarta", "Impostazioni", "Visualizzazione", 2)
 
 		NumeroImmagineVisualizzata = GetSetting("CambiaLaCarta", "Impostazioni", "ImmagineVisualizzata", 0)
+
+		spostamentoOmbraX = GetSetting("CambiaLaCarta", "Impostazioni", "SpostamentoOmbraX", 20)
+		spostamentoOmbraY = GetSetting("CambiaLaCarta", "Impostazioni", "SpostamentoOmbraY", 20)
+		lblOmbraX.Text = spostamentoOmbraX
+		lblOmbraY.Text = spostamentoOmbraY
 
 		Dim ValoreCheck As String = GetSetting("CambiaLaCarta", "Impostazioni", "Cornice", "True")
 		If ValoreCheck = "True" Then chkCornice.Checked = True Else chkCornice.Checked = False
@@ -755,7 +763,7 @@ Public Class frmMain
 					bmpOmbra = gi.RuotaImmagineSenzaSalvare(bmpOmbra, rotazioneImm)
 				End If
 
-				GraphicsObject.DrawImage(bmpOmbra, px + 22, py + 22)
+				GraphicsObject.DrawImage(bmpOmbra, px + spostamentoOmbraX, py + spostamentoOmbraY)
 			End If
 
 			GraphicsObject.DrawImage(bmp, px, py)
@@ -1095,4 +1103,33 @@ Public Class frmMain
 	Private Sub chkBlur_Click(sender As Object, e As EventArgs) Handles chkBlur.Click
 		SaveSetting("CambiaLaCarta", "Impostazioni", "Blur", ControllaCheck(chkBlur))
 	End Sub
+
+	Private Sub cmdMenoOmbraX_Click(sender As Object, e As EventArgs) Handles cmdMenoOmbraX.Click
+		If spostamentoOmbraX > 0 Then
+			spostamentoOmbraX -= 1
+			lblOmbraX.Text = spostamentoOmbraX
+			SaveSetting("CambiaLaCarta", "Impostazioni", "SpostamentoOmbraX", spostamentoOmbraX)
+		End If
+	End Sub
+
+	Private Sub cmdPiuOmbraX_Click(sender As Object, e As EventArgs) Handles cmdPiuOmbraX.Click
+		spostamentoOmbraX += 1
+		lblOmbraX.Text = spostamentoOmbraX
+		SaveSetting("CambiaLaCarta", "Impostazioni", "SpostamentoOmbraX", spostamentoOmbraX)
+	End Sub
+
+	Private Sub cmdMenoOmbraY_Click(sender As Object, e As EventArgs) Handles cmdMenoOmbraY.Click
+		If spostamentoOmbraY > 0 Then
+			spostamentoOmbraY -= 1
+			lblOmbraY.Text = spostamentoOmbraY
+			SaveSetting("CambiaLaCarta", "Impostazioni", "SpostamentoOmbraY", spostamentoOmbraY)
+		End If
+	End Sub
+
+	Private Sub cmdPiuOmbraY_Click(sender As Object, e As EventArgs) Handles cmdPiuOmbraY.Click
+		spostamentoOmbraY += 1
+		lblOmbraY.Text = spostamentoOmbraY
+		SaveSetting("CambiaLaCarta", "Impostazioni", "SpostamentoOmbraY", spostamentoOmbraY)
+	End Sub
+
 End Class
