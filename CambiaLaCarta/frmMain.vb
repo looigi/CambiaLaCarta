@@ -403,6 +403,8 @@ Public Class frmMain
 
 		End Try
 
+		ToglieOrientamentoAImmagine(Immaginella)
+
 		If optAdatta.Checked = True Then
 			Dim dX As Integer = Val(Dime(0))
 			Dim dY As Integer = Val(Dime(1))
@@ -1132,4 +1134,34 @@ Public Class frmMain
 		SaveSetting("CambiaLaCarta", "Impostazioni", "SpostamentoOmbraY", spostamentoOmbraY)
 	End Sub
 
+	Private Sub ToglieOrientamentoAImmagine(Immagine As String)
+		Dim sistemato As Boolean = False
+
+		If File.Exists(Immagine) = True Then
+			Dim imm As Bitmap = Image.FromFile(Immagine)
+			If imm.PropertyIdList.Contains(274) Then
+				imm.RemovePropertyItem(274)
+				sistemato = True
+			End If
+			If imm.PropertyIdList.Contains(20521) Then
+				imm.RemovePropertyItem(20521)
+				sistemato = True
+			End If
+
+			If sistemato Then
+				imm.Save(Percorso & Immagine & ".rot")
+				sistemato = True
+			End If
+
+			imm.Dispose()
+			imm = Nothing
+
+			If sistemato = True Then
+				Dim gf As New GestioneFilesDirectory
+				gf.EliminaFileFisico(Immagine)
+				gf.CopiaFileFisico(Immagine & ".rot", Immagine, True)
+				gf.EliminaFileFisico(Immagine & ".rot")
+			End If
+		End If
+	End Sub
 End Class
