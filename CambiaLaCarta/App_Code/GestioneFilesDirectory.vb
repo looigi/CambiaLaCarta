@@ -175,13 +175,14 @@ Public Class GestioneFilesDirectory
 
             path = path.Replace(barra & barra, barra)
 
-            ' Create or overwrite the file.
-            Dim fs As FileStream = File.Create(path)
-
-            ' Add text to the file.
-            Dim info As Byte() = New UTF8Encoding(True).GetBytes(Cosa)
-            fs.Write(info, 0, info.Length)
-            fs.Close()
+            Dim sw As StreamWriter
+            If (Not File.Exists(NomeFile)) Then
+                sw = File.CreateText(NomeFile)
+            Else
+                sw = File.AppendText(NomeFile)
+            End If
+            sw.WriteLine(Cosa)
+            sw.Close()
         Catch ex As Exception
             'Dim StringaPassaggio As String
             'Dim H As HttpApplication = HttpContext.Current.ApplicationInstance

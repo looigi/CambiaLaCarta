@@ -22,11 +22,27 @@ Public Class frmMain
 	Private spostamentoOmbraX As Integer = 22
 	Private spostamentoOmbraY As Integer = 22
 
+	Private Debug As Boolean = True
+	Private nomeFileLog As String = ""
+
 	'Private Sub frmMain_FormClosing(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosingEventArgs) Handles Me.FormClosing
 	'    'e.Cancel = True
 	'End Sub
 
+	Private Sub ScriveLog(Cosa As String)
+		If Debug Then
+			Dim gf As New GestioneFilesDirectory
+			Dim dt As String = Now.Year & Format(Now.Month, "00") & Format(Now.Day, "00") & " " & Format(Now.Hour, "00") & Format(Now.Hour, "00") & Format(Now.Minute, "00") & Format(Now.Second, "00")
+			gf.CreaAggiornaFile(nomeFileLog, dt & " -> " & Cosa)
+			gf = Nothing
+		End If
+	End Sub
+
 	Private Sub frmMain_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+		nomeFileLog = Application.StartupPath & "\Log.txt"
+
+		ScriveLog("Apertura")
+
 		dimeX = My.Computer.Screen.Bounds.Width
 		dimeY = My.Computer.Screen.Bounds.Height
 
@@ -69,9 +85,13 @@ Public Class frmMain
 		ValoreCheck = GetSetting("CambiaLaCarta", "Impostazioni", "Blur", True)
 		If ValoreCheck = "True" Then chkBlur.Checked = True Else chkBlur.Checked = False
 
+		ScriveLog("Imposta Opzioni")
+
 		ImpostaOptions()
 
 		lblDirectory.Text = Percorso
+
+		ScriveLog("Carica Immagini")
 
 		CaricaImmagini()
 
@@ -106,6 +126,8 @@ Public Class frmMain
 		Next
 		lblSfondi.Text = "Sfondi: " & quanteImmSfondo
 
+		ScriveLog("Quante imm sfondi: " & quanteImmSfondo)
+
 		' MsgBox(quanteImmSfondo)
 		gf.ScansionaDirectorySingola(Application.StartupPath & "\Images\Pins")
 		numPins = 0
@@ -116,6 +138,8 @@ Public Class frmMain
 			End If
 		Next
 		gf = Nothing
+
+		ScriveLog("Quante pins: " & numPins)
 
 		Me.Left = dimeX + 1000
 		Me.Top = dimeY + 1000
@@ -257,6 +281,8 @@ Public Class frmMain
 
 		Secondo = 0
 
+		ScriveLog("Cambio Sfondo 1")
+
 		Dim Key As Microsoft.Win32.RegistryKey = My.Computer.Registry.CurrentUser.OpenSubKey("Control Panel\Desktop", True)
 		Dim WallpaperStyle As Object = 1
 		Dim TileWallpaper As Object = 0
@@ -331,6 +357,8 @@ Public Class frmMain
 			NumeroImmagineVisualizzata = ImmagineImpostata
 		End If
 
+		ScriveLog("Cambio Sfondo 2. Numero Immagine: " & NumeroImmagineVisualizzata)
+
 		Dim Immaginella As String = NomeImmagine(NumeroImmagineVisualizzata)
 		Dim NomeOriginale As String = Immaginella
 
@@ -348,6 +376,8 @@ Public Class frmMain
 		End If
 
 		SaveSetting("CambiaLaCarta", "Impostazioni", "ImmagineVisualizzata", NumeroImmagineVisualizzata)
+
+		ScriveLog("Cambio Sfondo 3. Dimensioni immagine " & Dime(0) & "x" & Dime(1))
 
 		Dim dimeSchermoX = My.Computer.Screen.Bounds.Width
 		Dim dimeSchermoY = My.Computer.Screen.Bounds.Height
@@ -381,6 +411,8 @@ Public Class frmMain
 			Kill(Immaginella)
 			Rename(Immaginella & ".rsz", Immaginella)
 			' In caso di dimensioni esageratamente grandi riduce l'immagine
+
+			ScriveLog("Cambio Sfondo 4. Immagine ridimensionata " & dX & "x" & dY)
 		End If
 
 		' frmNomeImmagine.lblNomeImmagine.Text = NomeOriginale.Replace(Percorso & "\", "") & vbCrLf & "Dimensioni: " & vDime & vbCrLf & "Data: " & TornaDataImmagine(Immaginella) & vbCrLf
@@ -391,6 +423,8 @@ Public Class frmMain
 		SaveSetting("CambiaLaCarta", "Impostazioni", "UltimaScritta", UltimaScritta)
 
 		CaricaImmagine(Immaginella)
+
+		ScriveLog("Cambio Sfondo 5. Immagine caricata " & Immaginella)
 
 		Try
 			MkDir(Application.StartupPath & "\Images\Sfondi\Ridotti\")
@@ -403,7 +437,11 @@ Public Class frmMain
 
 		End Try
 
+		ScriveLog("Cambio Sfondo 6. Tolgo orientamento")
+
 		ToglieOrientamentoAImmagine(Immaginella)
+
+		ScriveLog("Cambio Sfondo 7. Tolto orientamento")
 
 		If optAdatta.Checked = True Then
 			Dim dX As Integer = Val(Dime(0))
@@ -430,6 +468,8 @@ Public Class frmMain
 
 			gi.Ridimensiona(Immaginella, Application.StartupPath & "\Images\Appoggio\Appoggio.png", dX * 0.9, dY * 0.8)
 
+			ScriveLog("Cambio Sfondo 8. Immagine ridimensionata " & (dX * 0.9) & "x" & (dY * 0.8))
+
 			If File.Exists(Application.StartupPath & "\Images\Appoggio\Appoggio.png") Then
 				Immaginella = Application.StartupPath & "\Images\Appoggio\Appoggio.png"
 			End If
@@ -443,6 +483,8 @@ Public Class frmMain
 
 				gi.Ridimensiona(Immaginella, Application.StartupPath & "\Images\Appoggio\Appoggio.png", dimeX, dimeY)
 
+				ScriveLog("Cambio Sfondo 9. Immagine ridimensionata " & dimeX & "x" & dimeY)
+
 				If File.Exists(Application.StartupPath & "\Images\Appoggio\Appoggio.png") Then
 					Immaginella = Application.StartupPath & "\Images\Appoggio\Appoggio.png"
 				End If
@@ -453,6 +495,8 @@ Public Class frmMain
 
 		If chkCornice.Checked = True Then
 			gi.MetteCorniceAImmagine(Immaginella, Application.StartupPath & "\Images\Appoggio\AppoggioCornice.png")
+
+			ScriveLog("Cambio Sfondo 10. Messa cornice")
 
 			If File.Exists(Application.StartupPath & "\Images\Appoggio\Appoggio.png") Then
 				Immaginella = Application.StartupPath & "\Images\Appoggio\AppoggioCornice.png"
@@ -508,6 +552,8 @@ Public Class frmMain
 		titBitmap.Save(Application.StartupPath & "\Images\Appoggio\AppoggioTit.png", ImageFormat.Png)
 		gi.Ridimensiona(Application.StartupPath & "\Images\Appoggio\AppoggioTit.png", Application.StartupPath & "\Images\Appoggio\AppoggioTit.png", dimeX * 0.35, 150, ImageFormat.Png)
 
+		ScriveLog("Cambio Sfondo 10. Immagine ridimensionata e scritta applicata")
+
 		Static yy As Random = New Random
 		Randomize()
 		Dim y As Integer = yy.Next(0, 14)
@@ -524,6 +570,8 @@ Public Class frmMain
 		Static xx As Random = New Random()
 		Randomize()
 		Dim x As Integer = xx.Next(1, 30)
+
+		ScriveLog("Cambio Sfondo 11. Inizio rotazione immagine " & x)
 
 		Dim b As Bitmap = gi.LoadBitmapSenzaLock(Immaginella)
 		If chkPin.Checked = True Then
@@ -585,12 +633,16 @@ Public Class frmMain
 							End If
 							GraphicsObject.DrawImage(bmpPins, b.Width - bmpPins.Width - 20, b.Height - bmpPins.Height - 20)
 							' 4 Pins
+
+							ScriveLog("Cambio Sfondo 12. Applicato pin")
 						Case 2
 							' Graffetta
 							Dim Graffetta As String = Application.StartupPath & "\Images\Dettagli\Graffetta.png"
 							Dim bmpGraffetta As Bitmap = gi.LoadBitmapSenzaLock(Graffetta)
 							GraphicsObject.DrawImage(bmpGraffetta, 30, -5)
 							' Graffetta
+
+							ScriveLog("Cambio Sfondo 13. Applicata graffetta")
 						Case 3
 							' Pin singolo
 							Randomize()
@@ -622,10 +674,14 @@ Public Class frmMain
 
 							GraphicsObject.DrawImage(bmpPins, w, x + 3)
 							' Pin singolo
+
+							ScriveLog("Cambio Sfondo 14. Applicato pin singolo")
 					End Select
 				End Using
 				File.Delete(Immaginella)
 				b.Save(Immaginella)
+
+				ScriveLog("Cambio Sfondo 15. Immagine salvata " & Immaginella)
 			End If
 		End If
 
@@ -661,14 +717,20 @@ Public Class frmMain
 					gi.ConverteImmaginInBN(Immaginella, Immaginella & ".BN")
 					File.Delete(Immaginella)
 					Rename(Immaginella & ".BN", Immaginella)
+
+					ScriveLog("Cambio Sfondo 16. Convertita BN")
 				End If
 			Case 2, 12, 22
 				If chkBlur.Checked Then
 					gi.ConverteInBlur1(Immaginella)
+
+					ScriveLog("Cambio Sfondo 17. Convertita BLUR")
 				End If
 			Case 3, 13, 23
 				If chkSeppia.Checked Then
 					gi.ConverteInSeppia(Immaginella)
+
+					ScriveLog("Cambio Sfondo 18. Convertita Seppia")
 				End If
 			Case 4
 				' gi.ConverteEdge(Immaginella)
@@ -677,6 +739,8 @@ Public Class frmMain
 			Case 6, 14, 24
 				If chkBlur.Checked Then
 					gi.ConverteInBlur2(Immaginella)
+
+					ScriveLog("Cambio Sfondo 19. Convertita Blur2")
 				End If
 			'Case 7
 			'	gi.ConverteInEmboss1(Immaginella)
@@ -687,6 +751,8 @@ Public Class frmMain
 			Case 10
 				If chkPixelate.Checked Then
 					gi.ConverteInPointellate(Immaginella)
+
+					ScriveLog("Cambio Sfondo 20. Convertita POINTELLATE")
 				End If
 				'Case 11
 				'	gi.ConverteInHighPass1(Immaginella)
@@ -694,8 +760,8 @@ Public Class frmMain
 				'	gi.ConverteInHighPass2(Immaginella)
 		End Select
 
-		Dim Sfondo As String
-		Dim SfondoRid As String
+		Dim Sfondo As String = ""
+		Dim SfondoRid As String = ""
 		Dim Ancora As Boolean = True
 		Dim screenWidth As Integer = Screen.PrimaryScreen.Bounds.Width
 		Dim screenHeight As Integer = Screen.PrimaryScreen.Bounds.Height
@@ -720,6 +786,9 @@ Public Class frmMain
 				Ancora = False
 			End If
 		Loop
+
+		ScriveLog("Cambio Sfondo 21. Applico sfondo: " & Sfondo)
+		ScriveLog("Cambio Sfondo 22. Applico sfondo rid: " & SfondoRid)
 
 		Dim bitmapSfondo As Bitmap
 		Dim bmp As Bitmap = gi.LoadBitmapSenzaLock(Immaginella)
@@ -770,34 +839,37 @@ Public Class frmMain
 
 			GraphicsObject.DrawImage(bmp, px, py)
 
+			ScriveLog("Cambio Sfondo 23")
+
 			If chkOggetti.Checked Then
 				Randomize()
 				y = yy.Next(1, 3)
 				If y = 2 Then
 					Randomize()
 					y = yy.Next(1, 12)
-					Dim bmpOggetto As Bitmap
+					Dim bmpOggetto As Bitmap = Nothing
+					Dim sOggetto As String = ""
 					Select Case y
 						Case 1, 2, 3, 4
-							Dim sOggetto As String = Application.StartupPath & "\Images\Dettagli\floppy" & y & ".png"
+							sOggetto = Application.StartupPath & "\Images\Dettagli\floppy" & y & ".png"
 							bmpOggetto = gi.LoadBitmapSenzaLock(sOggetto)
 							py = screenHeight - bmpOggetto.Height
 							y = yy.Next(10, bmpOggetto.Height - 10)
 							py += y
 						Case 5, 6
-							Dim sOggetto As String = Application.StartupPath & "\Images\Dettagli\usb" & (y - 4) & ".png"
+							sOggetto = Application.StartupPath & "\Images\Dettagli\usb" & (y - 4) & ".png"
 							bmpOggetto = gi.LoadBitmapSenzaLock(sOggetto)
 							py = 0
 							y = yy.Next(10, bmpOggetto.Height - 10)
 							py -= y
 						Case 7, 8, 9, 10
-							Dim sOggetto As String = Application.StartupPath & "\Images\Dettagli\penna" & (y - 6) & ".png"
+							sOggetto = Application.StartupPath & "\Images\Dettagli\penna" & (y - 6) & ".png"
 							bmpOggetto = gi.LoadBitmapSenzaLock(sOggetto)
 							py = 0
 							y = yy.Next(-50, screenHeight + 50)
 							py -= y
 						Case 11, 12
-							Dim sOggetto As String = Application.StartupPath & "\Images\Dettagli\squadretta.png"
+							sOggetto = Application.StartupPath & "\Images\Dettagli\squadretta.png"
 							bmpOggetto = gi.LoadBitmapSenzaLock(sOggetto)
 							y = yy.Next(1, 20)
 							If y > 10 Then y = 10 - y
@@ -806,6 +878,9 @@ Public Class frmMain
 							y = yy.Next(10, screenHeight - bmpOggetto.Height - 10)
 							py -= y
 					End Select
+
+					ScriveLog("Cambio Sfondo 24. Applico oggetto: " & soggetto)
+
 					dd = screenWidth - bmpOggetto.Width
 					If dd <= 0 Then
 						dd = 1
@@ -818,6 +893,8 @@ Public Class frmMain
 					GraphicsObject.DrawImage(bmpOggetto, px, py)
 				End If
 			End If
+
+			ScriveLog("Cambio Sfondo 25")
 
 			If chkNomeImm.Checked Then
 				Dim bmpTitolo As Bitmap = gi.LoadBitmapSenzaLock(Application.StartupPath & "\Images\Appoggio\AppoggioTit.png")
@@ -841,8 +918,13 @@ Public Class frmMain
 				GraphicsObject.DrawImage(bmpTitolo, px, py)
 			End If
 		End Using
+
+		ScriveLog("Cambio Sfondo 26. Sfondo da applicare: " & Immaginella)
+
 		File.Delete(Immaginella)
 		bitmapSfondo.Save(Immaginella)
+
+		ScriveLog("Cambio Sfondo 27. Imposto sfondo: " & Immaginella)
 		'End If
 
 		gi = Nothing
@@ -850,8 +932,10 @@ Public Class frmMain
 		Try
 			SystemParametersInfo(SPI_SETDESKWALLPAPER, 0, Immaginella, SPIF_UPDATEINIFILE Or SPIF_SENDWININICHANGE)
 		Catch ex As Exception
-
+			ScriveLog("Cambio Sfondo 28. Errore: " & ex.Message)
 		End Try
+
+		ScriveLog("Cambio Sfondo 29")
 
 		CaricaImmagini()
 
@@ -861,6 +945,8 @@ Public Class frmMain
 				Exit For
 			End If
 		Next
+
+		ScriveLog("Cambio Sfondo 30. Uscita")
 	End Sub
 
 	Private Sub lstImmagini_DoubleClick(sender As Object, e As EventArgs) Handles lstImmagini.DoubleClick
