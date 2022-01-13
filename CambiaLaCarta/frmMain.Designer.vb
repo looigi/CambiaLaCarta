@@ -165,6 +165,7 @@ Partial Class frmMain
 		Me.optOra.TabStop = True
 		Me.optOra.Text = "Synchronized"
 		Me.optOra.UseVisualStyleBackColor = True
+		Me.optOra.Visible = False
 		'
 		'Label1
 		'
