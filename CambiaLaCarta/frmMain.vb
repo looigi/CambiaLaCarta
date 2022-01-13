@@ -39,6 +39,8 @@ Public Class frmMain
 	End Sub
 
 	Private Sub frmMain_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+		Dim a As String = TornaDataImmagine("D:\GoogleDrive\Sfondi\Noi\Gruppi\Noi dall'alto a Marsiglia.jpg")
+
 		ultimaData = Now.Year & Format(Now.Month, "00") & Format(Now.Day, "00")
 
 		nomeFileLog = Application.StartupPath & "\Log.txt"
@@ -169,7 +171,11 @@ Public Class frmMain
 		'	Next
 		'Next
 
-		Return File.GetCreationTime(NomeFile)
+		Dim ultimoAccesso As String = File.GetLastAccessTime(NomeFile)
+		Dim dataCreazione As String = File.GetCreationTime(NomeFile)
+		Dim ultimaScrittura As String = File.GetLastWriteTime(NomeFile)
+
+		Return dataCreazione
 	End Function
 
 	Private Sub ImpostaIcona()
@@ -427,6 +433,7 @@ Public Class frmMain
 
 		Dim Immaginella As String = Percorso & "\" & lstImmagini.Items.Item(NumeroImmagineVisualizzata) '  NomeImmagine(NumeroImmagineVisualizzata)
 		Dim NomeOriginale As String = Immaginella
+		Dim dataFile As String = TornaDataImmagine(Immaginella)
 
 		If File.Exists(Immaginella) = False Then
 			Exit Sub
@@ -484,7 +491,7 @@ Public Class frmMain
 		' frmNomeImmagine.lblNomeImmagine.Text = NomeOriginale.Replace(Percorso & "\", "") & vbCrLf & "Dimensioni: " & vDime & vbCrLf & "Data: " & TornaDataImmagine(Immaginella) & vbCrLf
 		' frmNomeImmagine.Width = frmNomeImmagine.lblNomeImmagine.Width + 10
 
-		Dim UltimaScritta As String = NomeOriginale.Replace(Percorso & "\", "") & vbCrLf & "Dimensioni: " & vDime & vbCrLf & "Data: " & TornaDataImmagine(Immaginella) & vbCrLf
+		Dim UltimaScritta As String = NomeOriginale.Replace(Percorso & "\", "") & vbCrLf & "Dimensioni: " & vDime & vbCrLf & "Data: " & datafile & vbCrLf
 
 		SaveSetting("CambiaLaCarta", "Impostazioni", "UltimaScritta", UltimaScritta)
 
@@ -583,7 +590,7 @@ Public Class frmMain
 			TitoloScritta1 = Mid(TitoloScritta1, 1, TitoloScritta1.IndexOf("."))
 		End If
 		Dim TitoloScritta2 As String = "Path: " & gf.TornaNomeDirectoryDaPath(NomeOriginale.Replace(Percorso & "\", ""))
-		Dim TitoloScritta3 As String = "Dimensioni: " & vDime & " - Data: " & TornaDataImmagine(Immaginella)
+		Dim TitoloScritta3 As String = "Dimensioni: " & vDime & " - Data: " & dataFile
 		If TitoloScritta1.Length > 34 Then
 			TitoloScritta1 = Mid(TitoloScritta1, 1, 16) & "..." & Mid(TitoloScritta1, TitoloScritta1.Length - 16, 16)
 		End If
@@ -1021,7 +1028,7 @@ Public Class frmMain
 
 		For i As Integer = 1 To QuanteImmagini
 			If NomeImmagine(i).IndexOf(lstImmagini.Text) > -1 Then
-				Quale = i
+				Quale = i - 1
 				Exit For
 			End If
 		Next
