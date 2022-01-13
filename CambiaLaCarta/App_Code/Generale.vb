@@ -8,4 +8,7 @@
     Public NumeroImmagineVisualizzata As Integer
     Public dimeX As Integer
     Public dimeY As Integer
+    Public lstTutte As New List(Of String)
+    Public lstOggi As New List(Of String)
+    Public ultimaData As String
 End Module

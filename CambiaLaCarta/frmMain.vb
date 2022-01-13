@@ -39,6 +39,8 @@ Public Class frmMain
 	End Sub
 
 	Private Sub frmMain_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+		ultimaData = Now.Year & Format(Now.Month, "00") & Format(Now.Day, "00")
+
 		nomeFileLog = Application.StartupPath & "\Log.txt"
 
 		ScriveLog("Apertura")
@@ -84,16 +86,18 @@ Public Class frmMain
 		If ValoreCheck = "True" Then chkOggetti.Checked = True Else chkOggetti.Checked = False
 		ValoreCheck = GetSetting("CambiaLaCarta", "Impostazioni", "Blur", True)
 		If ValoreCheck = "True" Then chkBlur.Checked = True Else chkBlur.Checked = False
-
-		ScriveLog("Imposta Opzioni")
-
-		ImpostaOptions()
+		Dim Valo As String = GetSetting("CambiaLaCarta", "Impostazioni", "SoloOggi", "N")
+		chkOggi.Checked = (Valo = "S")
 
 		lblDirectory.Text = Percorso
 
 		ScriveLog("Carica Immagini")
 
 		CaricaImmagini()
+
+		ScriveLog("Imposta Opzioni")
+
+		ImpostaOptions()
 
 		' frmNomeImmagine.Show()
 		' frmNomeImmagine.Opacity = 0.5
@@ -209,6 +213,8 @@ Public Class frmMain
 	End Sub
 
 	Private Sub ImpostaOptions()
+		Dim quale As New List(Of String)
+
 		Select Case Avanzamento
 			Case 1
 				optSequenziale.Checked = True
@@ -222,7 +228,24 @@ Public Class frmMain
 				optSequenziale.Checked = False
 				optRandom.Checked = False
 				optOra.Checked = True
+			Case 4
+				optSequenziale.Checked = False
+				optRandom.Checked = False
+				optOra.Checked = False
 		End Select
+
+		If chkOggi.Checked = True And lstOggi.Count > 0 Then
+			quale = lstOggi
+		Else
+			quale = lstTutte
+		End If
+
+		lstImmagini.Items.Clear()
+		For Each q As String In quale
+			lstImmagini.Items.Add(q)
+		Next
+
+		lblQuante.Text = "Immagini: " & quale.Count
 
 		Select Case Visualizzazione
 			Case 1
@@ -245,7 +268,8 @@ Public Class frmMain
 
 		gf.ScansionaDirectorySingola(Percorso, "*.JPG;*.JPEG;*.BMP;*.PCX;*.PNG;")
 
-		lstImmagini.Items.Clear()
+		lstTutte = New List(Of String)
+		lstOggi = New List(Of String)
 
 		QuanteImmagini = gf.RitornaQuantiFilesRilevati
 		NomeImmagine = gf.RitornaFilesRilevati
@@ -254,9 +278,21 @@ Public Class frmMain
 		If NomeImmagine Is Nothing = False Then
 			For i As Integer = 0 To QuanteImmagini
 				If NomeImmagine(i) <> "" Then
-					lstImmagini.Items.Add(NomeImmagine(i).Replace(Percorso & "\", ""))
+					lstTutte.Add(NomeImmagine(i).Replace(Percorso & "\", ""))
+
+					If ControllaData(NomeImmagine(i)) Then
+						lstOggi.Add(NomeImmagine(i).Replace(Percorso & "\", ""))
+					End If
 				End If
 			Next
+		End If
+
+		chkOggi.Visible = True
+		If lstOggi.Count = 0 Then
+			chkOggi.Visible = False
+		Else
+			Dim Valo As String = GetSetting("CambiaLaCarta", "Impostazioni", "SoloOggi", "N")
+			chkOggi.Checked = (Valo = "S")
 		End If
 
 		lblQuante.Text = "Immagini: " & QuanteImmagini
@@ -266,6 +302,22 @@ Public Class frmMain
 		picImmagine.Visible = False
 	End Sub
 
+	Private Function ControllaData(Immagine) As Boolean
+		Dim Ritorno As Boolean = False
+		Dim oggi As String = Format(Now.Month, "00") & Format(Now.Day, "00")
+
+		'Dim lastWrite As DateTime = File.GetLastWriteTime(Immagine)
+		'Dim lw As String = Format(lastWrite.Day, "00") & Format(lastWrite.Month, "00")
+		Dim firstWrite As DateTime = File.GetCreationTime(Immagine)
+		Dim fw As String = Format(firstWrite.Month, "00") & Format(firstWrite.Day, "00")
+
+		If oggi = fw Or Immagine.contains(oggi) Then
+			Ritorno = True
+		End If
+
+		Return Ritorno
+	End Function
+
 	Private Sub Timer1_Tick(sender As Object, e As EventArgs) Handles Timer1.Tick
 		Secondo += 1
 
@@ -273,6 +325,15 @@ Public Class frmMain
 
 		If Secondo >= Val(lblSecondi.Text) Then
 			CambiaSfondo()
+		End If
+
+		Dim dd As String = Now.Year & Format(Now.Month, "00") & Format(Now.Day, "00")
+
+		If dd <> ultimaData Then
+			ultimaData = dd
+
+			CaricaImmagini()
+			ImpostaOptions()
 		End If
 	End Sub
 
@@ -1005,11 +1066,11 @@ Public Class frmMain
 			dX /= PercentualeResize
 			dY /= PercentualeResize
 
-			picImmagine.Width = dX
-			picImmagine.Height = dY
+			'picImmagine.Width = dX
+			'picImmagine.Height = dY
 
-			picImmagine.Left = (lstImmagini.Left + lstImmagini.Width) + ((sX / 2) - (dX / 2))
-			picImmagine.Top = 10
+			'picImmagine.Left = (lstImmagini.Left + lstImmagini.Width) + ((sX / 2) - (dX / 2))
+			'picImmagine.Top = 10
 
 			picImmagine.Visible = True
 		Catch ex As Exception
@@ -1235,7 +1296,7 @@ Public Class frmMain
 			End If
 
 			If sistemato Then
-				imm.Save(Percorso & Immagine & ".rot")
+				imm.Save(Immagine & ".rot")
 				sistemato = True
 			End If
 
@@ -1249,5 +1310,12 @@ Public Class frmMain
 				gf.EliminaFileFisico(Immagine & ".rot")
 			End If
 		End If
+	End Sub
+
+	Private Sub chkOggi_Click(sender As Object, e As EventArgs) Handles chkOggi.Click
+		Dim valore As String = IIf(chkOggi.Checked = True, "S", "N")
+
+		SaveSetting("CambiaLaCarta", "Impostazioni", "SoloOggi", valore)
+		ImpostaOptions()
 	End Sub
 End Class

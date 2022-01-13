@@ -75,6 +75,7 @@ Partial Class frmMain
 		Me.chkSeppia = New System.Windows.Forms.CheckBox()
 		Me.chkBN = New System.Windows.Forms.CheckBox()
 		Me.Label5 = New System.Windows.Forms.Label()
+		Me.chkOggi = New System.Windows.Forms.CheckBox()
 		CType(Me.picImmagine, System.ComponentModel.ISupportInitialize).BeginInit()
 		Me.Panel1.SuspendLayout()
 		Me.Panel2.SuspendLayout()
@@ -97,7 +98,7 @@ Partial Class frmMain
 		Me.lstImmagini.ItemHeight = 15
 		Me.lstImmagini.Location = New System.Drawing.Point(12, 29)
 		Me.lstImmagini.Name = "lstImmagini"
-		Me.lstImmagini.Size = New System.Drawing.Size(242, 152)
+		Me.lstImmagini.Size = New System.Drawing.Size(242, 122)
 		Me.lstImmagini.TabIndex = 0
 		'
 		'lblQuante
@@ -114,9 +115,9 @@ Partial Class frmMain
 		Me.picImmagine.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
 			Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
 		Me.picImmagine.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-		Me.picImmagine.Location = New System.Drawing.Point(270, 29)
+		Me.picImmagine.Location = New System.Drawing.Point(260, 29)
 		Me.picImmagine.Name = "picImmagine"
-		Me.picImmagine.Size = New System.Drawing.Size(275, 150)
+		Me.picImmagine.Size = New System.Drawing.Size(285, 150)
 		Me.picImmagine.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
 		Me.picImmagine.TabIndex = 2
 		Me.picImmagine.TabStop = False
@@ -150,14 +151,14 @@ Partial Class frmMain
 		Me.Panel1.Controls.Add(Me.optSequenziale)
 		Me.Panel1.Location = New System.Drawing.Point(12, 229)
 		Me.Panel1.Name = "Panel1"
-		Me.Panel1.Size = New System.Drawing.Size(102, 96)
+		Me.Panel1.Size = New System.Drawing.Size(102, 105)
 		Me.Panel1.TabIndex = 7
 		'
 		'optOra
 		'
 		Me.optOra.AutoSize = True
 		Me.optOra.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-		Me.optOra.Location = New System.Drawing.Point(6, 72)
+		Me.optOra.Location = New System.Drawing.Point(6, 76)
 		Me.optOra.Name = "optOra"
 		Me.optOra.Size = New System.Drawing.Size(98, 19)
 		Me.optOra.TabIndex = 10
@@ -178,7 +179,7 @@ Partial Class frmMain
 		'
 		Me.optRandom.AutoSize = True
 		Me.optRandom.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-		Me.optRandom.Location = New System.Drawing.Point(6, 49)
+		Me.optRandom.Location = New System.Drawing.Point(6, 54)
 		Me.optRandom.Name = "optRandom"
 		Me.optRandom.Size = New System.Drawing.Size(73, 19)
 		Me.optRandom.TabIndex = 8
@@ -208,7 +209,7 @@ Partial Class frmMain
 		Me.Panel2.Controls.Add(Me.Label2)
 		Me.Panel2.Location = New System.Drawing.Point(120, 229)
 		Me.Panel2.Name = "Panel2"
-		Me.Panel2.Size = New System.Drawing.Size(113, 96)
+		Me.Panel2.Size = New System.Drawing.Size(113, 105)
 		Me.Panel2.TabIndex = 8
 		'
 		'lblMinuti
@@ -265,7 +266,7 @@ Partial Class frmMain
 		Me.Panel3.Controls.Add(Me.optTuttoSchermo)
 		Me.Panel3.Location = New System.Drawing.Point(239, 229)
 		Me.Panel3.Name = "Panel3"
-		Me.Panel3.Size = New System.Drawing.Size(179, 96)
+		Me.Panel3.Size = New System.Drawing.Size(179, 105)
 		Me.Panel3.TabIndex = 9
 		'
 		'optNormale
@@ -341,12 +342,12 @@ Partial Class frmMain
 		Me.Panel4.Controls.Add(Me.Label4)
 		Me.Panel4.Location = New System.Drawing.Point(424, 229)
 		Me.Panel4.Name = "Panel4"
-		Me.Panel4.Size = New System.Drawing.Size(121, 95)
+		Me.Panel4.Size = New System.Drawing.Size(121, 105)
 		Me.Panel4.TabIndex = 18
 		'
 		'cmdPausa
 		'
-		Me.cmdPausa.Location = New System.Drawing.Point(79, 66)
+		Me.cmdPausa.Location = New System.Drawing.Point(78, 74)
 		Me.cmdPausa.Name = "cmdPausa"
 		Me.cmdPausa.Size = New System.Drawing.Size(37, 23)
 		Me.cmdPausa.TabIndex = 19
@@ -355,12 +356,14 @@ Partial Class frmMain
 		'
 		'lblSecondiAlCambio
 		'
-		Me.lblSecondiAlCambio.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+		Me.lblSecondiAlCambio.Font = New System.Drawing.Font("Arial", 15.75!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+		Me.lblSecondiAlCambio.ForeColor = System.Drawing.Color.Green
 		Me.lblSecondiAlCambio.Location = New System.Drawing.Point(-1, 26)
 		Me.lblSecondiAlCambio.Name = "lblSecondiAlCambio"
-		Me.lblSecondiAlCambio.Size = New System.Drawing.Size(121, 16)
+		Me.lblSecondiAlCambio.Size = New System.Drawing.Size(121, 42)
 		Me.lblSecondiAlCambio.TabIndex = 18
 		Me.lblSecondiAlCambio.Text = "Ritardo"
+		Me.lblSecondiAlCambio.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
 		'
 		'Label4
 		'
@@ -429,7 +432,7 @@ Partial Class frmMain
 		Me.Panel5.Controls.Add(Me.chkSeppia)
 		Me.Panel5.Controls.Add(Me.chkBN)
 		Me.Panel5.Controls.Add(Me.Label5)
-		Me.Panel5.Location = New System.Drawing.Point(12, 332)
+		Me.Panel5.Location = New System.Drawing.Point(12, 340)
 		Me.Panel5.Name = "Panel5"
 		Me.Panel5.Size = New System.Drawing.Size(533, 103)
 		Me.Panel5.TabIndex = 23
@@ -619,12 +622,24 @@ Partial Class frmMain
 		Me.Label5.TabIndex = 10
 		Me.Label5.Text = "Effetti"
 		'
+		'chkOggi
+		'
+		Me.chkOggi.AutoSize = True
+		Me.chkOggi.Font = New System.Drawing.Font("Arial", 9.0!)
+		Me.chkOggi.Location = New System.Drawing.Point(12, 161)
+		Me.chkOggi.Name = "chkOggi"
+		Me.chkOggi.Size = New System.Drawing.Size(164, 19)
+		Me.chkOggi.TabIndex = 24
+		Me.chkOggi.Text = "Solo immagini del giorno"
+		Me.chkOggi.UseVisualStyleBackColor = True
+		'
 		'frmMain
 		'
 		Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
 		Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-		Me.ClientSize = New System.Drawing.Size(552, 447)
+		Me.ClientSize = New System.Drawing.Size(558, 449)
 		Me.ControlBox = False
+		Me.Controls.Add(Me.chkOggi)
 		Me.Controls.Add(Me.Panel5)
 		Me.Controls.Add(Me.PictureBox1)
 		Me.Controls.Add(Me.cmdDelete)
@@ -658,6 +673,7 @@ Partial Class frmMain
 		Me.Panel5.ResumeLayout(False)
 		Me.Panel5.PerformLayout()
 		Me.ResumeLayout(False)
+		Me.PerformLayout()
 
 	End Sub
 
@@ -712,4 +728,5 @@ Partial Class frmMain
 	Friend WithEvents cmdPiuOmbraY As Button
 	Friend WithEvents cmdMenoOmbraY As Button
 	Friend WithEvents lblOmbraY As Label
+	Friend WithEvents chkOggi As CheckBox
 End Class
