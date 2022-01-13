@@ -169,7 +169,7 @@ Public Class frmMain
 		'	Next
 		'Next
 
-		Return File.GetLastWriteTime(NomeFile)
+		Return File.GetCreationTime(NomeFile)
 	End Function
 
 	Private Sub ImpostaIcona()
@@ -352,16 +352,21 @@ Public Class frmMain
 		'Key.SetValue("TileWallpaper", TileWallpaper)
 		'Key.Close()
 
+		QuanteImmagini = lstImmagini.Items.Count ' - 1
+
 		If ImmagineImpostata = -1 Then
 			If optSequenziale.Checked = True Then
 				NumeroImmagineVisualizzata += 1
+				If NumeroImmagineVisualizzata > QuanteImmagini Then
+					NumeroImmagineVisualizzata = 0
+				End If
 			Else
 				If optRandom.Checked = True Then
 					Dim Vecchia As Integer = NumeroImmagineVisualizzata
 
 					Do While NumeroImmagineVisualizzata = Vecchia
 						Randomize()
-						NumeroImmagineVisualizzata = CInt(Int((QuanteImmagini * Rnd()))) + 1
+						NumeroImmagineVisualizzata = CInt(Int((QuanteImmagini * Rnd()))) '+ 1
 					Loop
 				Else
 					Dim Vecchia As Integer = NumeroImmagineVisualizzata
@@ -385,7 +390,7 @@ Public Class frmMain
 						NumeroImmagineVisualizzata = -1
 
 						For i As Integer = 1 To QuanteImmagini
-							If NomeImmagine(i).Contains(Imma) Then
+							If lstImmagini.Items.Item(i).Contains(Imma) Then
 								NumeroImmagineVisualizzata = i
 								Exit For
 							End If
@@ -401,7 +406,7 @@ Public Class frmMain
 
 							Do While NumeroImmagineVisualizzata = Vecchia2
 								Randomize()
-								NumeroImmagineVisualizzata = CInt(Int((QuanteImmagini * Rnd()))) + 1
+								NumeroImmagineVisualizzata = CInt(Int((QuanteImmagini * Rnd()))) '+ 1
 							Loop
 						End If
 					Catch ex As Exception
@@ -409,7 +414,7 @@ Public Class frmMain
 
 						Do While NumeroImmagineVisualizzata = Vecchia3
 							Randomize()
-							NumeroImmagineVisualizzata = CInt(Int((QuanteImmagini * Rnd()))) + 1
+							NumeroImmagineVisualizzata = CInt(Int((QuanteImmagini * Rnd()))) '+ 1
 						Loop
 					End Try
 				End If
@@ -420,7 +425,7 @@ Public Class frmMain
 
 		ScriveLog("Cambio Sfondo 2. Numero Immagine: " & NumeroImmagineVisualizzata)
 
-		Dim Immaginella As String = NomeImmagine(NumeroImmagineVisualizzata)
+		Dim Immaginella As String = Percorso & "\" & lstImmagini.Items.Item(NumeroImmagineVisualizzata) '  NomeImmagine(NumeroImmagineVisualizzata)
 		Dim NomeOriginale As String = Immaginella
 
 		If File.Exists(Immaginella) = False Then
@@ -479,7 +484,7 @@ Public Class frmMain
 		' frmNomeImmagine.lblNomeImmagine.Text = NomeOriginale.Replace(Percorso & "\", "") & vbCrLf & "Dimensioni: " & vDime & vbCrLf & "Data: " & TornaDataImmagine(Immaginella) & vbCrLf
 		' frmNomeImmagine.Width = frmNomeImmagine.lblNomeImmagine.Width + 10
 
-		Dim UltimaScritta As String = NomeOriginale.Replace(Percorso & "\", "") & vbCrLf & "Dimensioni: " & vDime & vbCrLf & "Data: " & TornaDataImmagine(NomeImmagine(NumeroImmagineVisualizzata)) & vbCrLf
+		Dim UltimaScritta As String = NomeOriginale.Replace(Percorso & "\", "") & vbCrLf & "Dimensioni: " & vDime & vbCrLf & "Data: " & TornaDataImmagine(Immaginella) & vbCrLf
 
 		SaveSetting("CambiaLaCarta", "Impostazioni", "UltimaScritta", UltimaScritta)
 
@@ -578,7 +583,7 @@ Public Class frmMain
 			TitoloScritta1 = Mid(TitoloScritta1, 1, TitoloScritta1.IndexOf("."))
 		End If
 		Dim TitoloScritta2 As String = "Path: " & gf.TornaNomeDirectoryDaPath(NomeOriginale.Replace(Percorso & "\", ""))
-		Dim TitoloScritta3 As String = "Dimensioni: " & vDime & " - Data: " & TornaDataImmagine(NomeImmagine(NumeroImmagineVisualizzata))
+		Dim TitoloScritta3 As String = "Dimensioni: " & vDime & " - Data: " & TornaDataImmagine(Immaginella)
 		If TitoloScritta1.Length > 34 Then
 			TitoloScritta1 = Mid(TitoloScritta1, 1, 16) & "..." & Mid(TitoloScritta1, TitoloScritta1.Length - 16, 16)
 		End If
